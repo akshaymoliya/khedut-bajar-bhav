@@ -1,0 +1,327 @@
+@import "tailwindcss";
+
+/* Tailwind v4: design tokens using @theme */
+@theme {
+  --color-primary: #2f855a;
+  /* green */
+  --color-secondary: #10b981;
+  /* emerald */
+  --color-accent: #f59e0b;
+  /* amber */
+  --color-muted: #64748b;
+  /* slate-500 */
+  --color-bg: #f8fafc;
+  /* slate-50 */
+
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto,
+    "Noto Sans", Ubuntu, Cantarell, "Helvetica Neue", Arial,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+/* Base styles and CSS nesting */
+html {
+  font-family: var(--font-sans);
+  color: theme(colors.slate.800);
+  background: var(--color-bg);
+}
+
+/* Accessible focus */
+:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--color-primary), white 20%);
+  outline-offset: 2px;
+}
+
+/* Layout helpers */
+.container {
+  @apply mx-auto px-4 sm:px-6 lg:px-8;
+}
+
+/* Header navigation styles demonstrating nesting */
+.app-header {
+  @apply fixed top-0 left-0 right-0 z-40 bg-white/80 backdrop-blur border-b border-slate-200;
+
+  & .nav {
+    @apply items-center gap-4;
+
+    & a {
+      @apply text-slate-700 hover:text-primary font-medium py-2 px-3 rounded;
+    }
+
+    & .active {
+      @apply text-primary bg-primary/10;
+    }
+  }
+}
+
+/* Mobile menu overlay and animations */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 200ms ease, transform 200ms ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-4px);
+}
+
+/* Touch target sizing */
+.touch-target {
+  width: 48px;
+  height: 48px;
+}
+
+/* Responsive tweaks using media queries */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .app-header .nav a {
+    padding: 0.5rem 0.75rem;
+  }
+}
+
+@media (min-width: 1025px) {
+  .app-header .nav a {
+    padding: 0.5rem 1rem;
+  }
+}
+
+/* Utility classes for badges and cards */
+.badge {
+  @apply inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-xs font-medium bg-slate-100 text-slate-700;
+}
+
+.card {
+  @apply rounded-xl border border-slate-200 bg-white shadow-sm;
+}
+
+.card-header {
+  @apply flex items-center justify-between gap-2 p-4 border-b border-slate-200;
+}
+
+.card-body {
+  @apply p-4;
+}
+
+.btn {
+  @apply inline-flex items-center justify-center gap-2 rounded-xl px-4 py-3 text-base font-semibold transition-transform active:scale-95 disabled:opacity-50 disabled:cursor-not-allowed;
+}
+
+.btn-primary {
+  @apply bg-primary text-white shadow-lg shadow-primary/30 hover:bg-primary/90 hover:shadow-primary/40 border-2 border-transparent;
+}
+
+.btn-outline {
+  @apply border-2 border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300;
+}
+
+.input {
+  @apply w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 transition-all;
+}
+
+.select {
+  @apply w-full rounded-xl border-2 border-slate-200 bg-white px-4 py-3 text-base text-slate-900 placeholder:text-slate-400 focus:outline-none focus:border-primary focus:ring-4 focus:ring-primary/10 appearance-none;
+}
+
+/* Table styles */
+.table {
+  @apply w-full text-sm;
+}
+
+.table thead th {
+  @apply text-left font-semibold text-slate-700 bg-slate-50 border-b border-slate-200 px-3 py-2;
+}
+
+.table tbody td {
+  @apply border-b border-slate-100 px-3 py-2;
+}
+
+/* Hero section */
+.hero {
+  @apply relative overflow-hidden rounded-2xl bg-gradient-to-br from-primary/15 via-secondary/10 to-accent/10 p-6 sm:p-8;
+}
+
+.hero-title {
+  @apply text-2xl sm:text-3xl md:text-4xl font-extrabold text-slate-900;
+}
+
+.hero-subtitle {
+  @apply mt-2 text-slate-700;
+}
+
+/* Price table: ensure no horizontal scroll and fit columns */
+.price-table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.price-table thead th:nth-child(1),
+.price-table tbody td:nth-child(1) {
+  width: 50%;
+}
+
+.price-table thead th:nth-child(2),
+.price-table tbody td:nth-child(2),
+.price-table thead th:nth-child(3),
+.price-table tbody td:nth-child(3) {
+  width: 25%;
+}
+
+@media (max-width: 767px) {
+
+  .price-table thead th,
+  .price-table tbody td {
+    padding: 0.5rem;
+    font-size: 0.875rem;
+  }
+}
+
+/* Accessible min/max value colors with strong contrast */
+.value-min {
+  @apply text-green-700 font-medium;
+}
+
+.value-max {
+  @apply text-red-700 font-semibold;
+}
+
+/* Optional high-contrast fallback for users with red/green deficiency
+   Uncomment to use blue/orange scheme instead:
+   .value-min { @apply text-blue-700 font-medium; }
+   .value-max { @apply text-amber-700 font-semibold; }
+*/
+
+/* --- Modern theme upgrades (append-only to override previous rules) --- */
+.app-header {
+  @apply shadow-sm;
+}
+
+.app-header .nav a {
+  @apply rounded-lg transition-colors hover:underline underline-offset-4 decoration-2;
+}
+
+.card {
+  @apply rounded-2xl shadow-md hover:shadow-lg transition-shadow;
+}
+
+.card-header {
+  @apply bg-white/50;
+}
+
+.hero {
+  @apply rounded-3xl bg-gradient-to-br from-primary/20 via-secondary/15 to-accent/15 md:p-12 shadow-md;
+}
+
+.hero-title {
+  @apply text-3xl sm:text-4xl md:text-5xl tracking-tight;
+}
+
+.hero-subtitle {
+  @apply max-w-prose;
+}
+
+.motto-badge {
+  @apply inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold bg-primary/10 text-primary w-fit;
+}
+
+.btn {
+  @apply hover:shadow-sm;
+}
+
+.btn-primary {
+  @apply focus:ring-2 focus:ring-primary/30;
+}
+
+.btn-outline {
+  @apply focus:ring-2 focus:ring-primary/20;
+}
+
+/* Responsive behavior for header menu button */
+.responsive-button {
+  /* Base comfortable padding; overridden at breakpoints */
+  padding: 0.5rem;
+}
+
+/* Mobile: ensure large tap target and icon visibility (<768px) */
+@media (max-width: 767px) {
+  .responsive-button {
+    padding: 0.5rem;
+  }
+
+  .responsive-button svg {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/* Tablet: slightly tighter padding, balanced icon size (768px–1199px) */
+@media (min-width: 768px) and (max-width: 1199px) {
+  .responsive-button {
+    padding: 0.375rem 0.75rem;
+    /* 6px top/bottom, 12px sides */
+  }
+
+  .responsive-button svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+/* Desktop/Large: consistent sizing at >=1200px */
+@media (min-width: 1200px) {
+
+  /* Hide hamburger button on large screens */
+  .responsive-button {
+    display: none;
+  }
+
+  /* Ensure mobile overlay never shows on large screens */
+  .mobile-menu {
+    display: none !important;
+  }
+}
+
+/* Laptop breakpoint adjustments (≥992px) */
+@media (min-width: 992px) {
+
+  /* Show full navigation and hide menu toggle */
+  .app-header .nav {
+    display: flex !important;
+  }
+
+  .menu-toggle {
+    display: none !important;
+  }
+
+  .menu-overlay {
+    display: none !important;
+  }
+}
+
+/* Below laptop (<992px): keep nav hidden for compact header */
+@media (max-width: 991px) {
+  .app-header .nav {
+    display: none !important;
+  }
+}
+
+/* Compact hero and title scale to reduce height */
+.hero {
+  @apply p-6 sm:p-8 md:p-8;
+}
+
+.hero-title {
+  @apply text-2xl sm:text-3xl md:text-4xl;
+}
+
+/* Defer rendering for below-the-fold content (performance) */
+.defer-content {
+  content-visibility: auto;
+  contain-intrinsic-size: 300px;
+}
