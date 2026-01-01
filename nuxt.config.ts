@@ -3,7 +3,7 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineNuxtConfig({
   compatibilityDate: '2025-07-15',
   devtools: { enabled: true },
-  modules: ['@nuxtjs/supabase'],
+  modules: ['@nuxtjs/supabase', '@nuxtjs/sitemap'],
   css: ['./app/assets/css/main.css'],
   vite: {
     plugins: [
@@ -32,5 +32,12 @@ export default defineNuxtConfig({
   },
   supabase: {
     redirect: false
+  },
+  site: {
+    url: 'https://www.khedutbajarbhav.online',
+    name: 'Khedut Bajar Bhav',
+  },
+  sitemap: {
+    strictNuxtContentAds: true,
   },
 })

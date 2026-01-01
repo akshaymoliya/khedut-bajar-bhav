@@ -223,12 +223,12 @@ useHead({
     { name: 'keywords', content: computed(() => `${q.value.market || 'Gujarat'} APMC, ${q.value.commodity || 'commodity'} price, market yard rates, mandi bhav, agriculture prices`) },
     { property: 'og:title', content: pageTitle },
     { property: 'og:description', content: pageDescription },
-    { property: 'og:url', content: computed(() => `https://yourwebsite.com${route.fullPath}`) },
+    { property: 'og:url', content: computed(() => `https://www.khedutbajarbhav.online${route.fullPath}`) },
     { property: 'og:type', content: 'website' },
     { name: 'robots', content: 'index, follow' }
   ],
   link: [
-    { rel: 'canonical', href: computed(() => `https://yourwebsite.com${route.fullPath}`) }
+    { rel: 'canonical', href: computed(() => `https://www.khedutbajarbhav.online${route.fullPath}`) }
   ]
 })
 
@@ -238,8 +238,8 @@ const schemaOrg = computed(() => {
     {
       '@type': 'BreadcrumbList',
       'itemListElement': [
-        { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://yourwebsite.com' },
-        { '@type': 'ListItem', 'position': 2, 'name': 'Market Prices', 'item': 'https://yourwebsite.com/market' }
+        { '@type': 'ListItem', 'position': 1, 'name': 'Home', 'item': 'https://www.khedutbajarbhav.online' },
+        { '@type': 'ListItem', 'position': 2, 'name': 'Market Prices', 'item': 'https://www.khedutbajarbhav.online/market' }
       ]
     }
   ]

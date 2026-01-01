@@ -205,15 +205,15 @@ import { onMounted, computed } from 'vue'
 
 // SEO Meta Tags
 useHead({
-  title: 'Gujarat Market Yard Prices - Live Agricultural Commodity Rates',
+  title: 'Khedut Bajar Bhav - ખેડૂત બજાર ભાવ | Live Gujarat APMC Market Yard Prices',
   meta: [
     {
       name: 'description',
-      content: 'Get real-time agricultural commodity prices from Gujarat market yards. Track daily rates for vegetables, fruits, grains, and other produce across APMC markets in Gujarat, India.'
+      content: 'ખેડૂત બજાર ભાવ - Get real-time agricultural commodity prices from Gujarat market yards. Track daily rates for Cotton, Groundnut, Wheat, Onion and other produce across all APMC markets in Gujarat.'
     },
     {
       name: 'keywords',
-      content: 'Gujarat market yard, APMC prices, agricultural commodity rates, mandi prices Gujarat, vegetable prices, fruit prices, grain prices, Ahmedabad market, Rajkot mandi, Gujarat agriculture'
+      content: 'ખેડૂત બજાર ભાવ, Khedut Bajar Bhav, Gujarat APMC rates, market yard prices, daily mandi bhav, Cotton price Gujarat, Groundnut price today, Wheat rates, Gondal APMC, Rajkot Market Yard, Ahmedabad APMC'
     },
     {
       name: 'author',
@@ -230,11 +230,11 @@ useHead({
     },
     {
       property: 'og:title',
-      content: 'Gujarat Market Yard Prices - Live Agricultural Commodity Rates'
+      content: 'Khedut Bajar Bhav - ખેડૂત બજાર ભાવ | Live Gujarat APMC Prices'
     },
     {
       property: 'og:description',
-      content: 'Track real-time agricultural commodity prices from Gujarat market yards. Daily rates for vegetables, fruits, grains across APMC markets.'
+      content: 'Track real-time agricultural commodity prices (ખેડૂત બજાર ભાવ) from Gujarat market yards. Daily rates for Cotton, Groundnut, and more.'
     },
     {
       property: 'og:locale',
@@ -266,7 +266,7 @@ useHead({
   link: [
     {
       rel: 'canonical',
-      href: 'https://yourwebsite.com/'
+      href: 'https://www.khedutbajarbhav.online/'
     }
   ],
   htmlAttrs: {
@@ -278,21 +278,21 @@ useHead({
 const schemaOrg = [
   {
     '@type': 'WebSite',
-    name: 'Gujarat Market Yard Prices',
-    description: 'Agricultural commodity prices from Gujarat market yards',
-    url: 'https://yourwebsite.com',
-    inLanguage: 'en-IN',
+    name: 'Khedut Bajar Bhav',
+    description: 'Agricultural commodity prices from Gujarat market yards (ખેડૂત બજાર ભાવ)',
+    url: 'https://www.khedutbajarbhav.online',
+    inLanguage: 'gu-IN',
     potentialAction: {
       '@type': 'SearchAction',
-      target: 'https://yourwebsite.com/market?commodity={search_term_string}',
+      target: 'https://www.khedutbajarbhav.online/market?commodity={search_term_string}',
       'query-input': 'required name=search_term_string'
     }
   },
   {
     '@type': 'Organization',
-    name: 'Gujarat Market Yard Price Portal',
-    url: 'https://yourwebsite.com',
-    logo: 'https://yourwebsite.com/logo.png',
+    name: 'Khedut Bajar Bhav',
+    url: 'https://www.khedutbajarbhav.online',
+    logo: 'https://www.khedutbajarbhav.online/logo.png',
     description: 'Providing real-time agricultural market prices from Gujarat APMCs',
     address: {
       '@type': 'PostalAddress',
