@@ -1,5 +1,4 @@
 <template>
-  <Analytics />
   <div class="min-h-dvh flex flex-col">
     <NuxtRouteAnnouncer />
     <AppHeader />
@@ -23,7 +22,6 @@
 
 <script setup>
 import AppHeader from './components/AppHeader.vue';
-import { Analytics } from '@vercel/analytics/nuxt'
 
 useHead({
   meta: [
