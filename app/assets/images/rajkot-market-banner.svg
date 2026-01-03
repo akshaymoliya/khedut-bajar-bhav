@@ -1,0 +1,49 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+  <!-- Background -->
+  <rect width="1200" height="630" fill="#F8FAFC"/>
+  <rect width="1200" height="630" fill="url(#paint0_linear_banner)"/>
+  
+  <!-- Decorative Elements -->
+  <circle cx="1100" cy="100" r="150" fill="white" fill-opacity="0.05"/>
+  <circle cx="100" cy="530" r="100" fill="white" fill-opacity="0.05"/>
+  
+  <!-- Content Area -->
+  <g filter="url(#filter0_d_banner)">
+    <rect x="50" y="50" width="1100" height="530" rx="24" fill="white"/>
+  </g>
+  
+  <!-- Left Side: Text -->
+  <text x="100" y="180" fill="#0F172A" font-family="sans-serif" font-size="64" font-weight="800">Rajkot Market Yard</text>
+  <text x="100" y="260" fill="#2563EB" font-family="sans-serif" font-size="48" font-weight="700">Live Prices & Rates</text>
+  
+  <text x="100" y="380" fill="#1E293B" font-family="sans-serif" font-size="72" font-weight="900">રાજકોટ માર્કેટ યાર્ડ</text>
+  <text x="100" y="460" fill="#64748B" font-family="sans-serif" font-size="36" font-weight="500">ખેડૂત બજાર ભાવ - દરરોજના તાજા ભાવ</text>
+  
+  <!-- Right Side: QR Code Area -->
+  <rect x="800" y="150" width="300" height="300" rx="16" fill="#F1F5F9"/>
+  <!-- QR Code Image Placeholder -->
+  <image x="825" y="175" width="250" height="250" xlink:href="qr-code.png" />
+  
+  <text x="800" y="490" text-anchor="middle" x="950" fill="#475569" font-family="sans-serif" font-size="20" font-weight="600">Scan to View Live Prices</text>
+  <text x="800" y="520" text-anchor="middle" x="950" fill="#2563EB" font-family="sans-serif" font-size="18" font-weight="700">www.khedutbajarbhav.online</text>
+  
+  <!-- Branding -->
+  <text x="100" y="540" fill="#94A3B8" font-family="sans-serif" font-size="24" font-weight="600">Khedut Bajar Bhav</text>
+  
+  <defs>
+    <linearGradient id="paint0_linear_banner" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#2563EB"/>
+      <stop offset="1" stop-color="#1E40AF"/>
+    </linearGradient>
+    <filter id="filter0_d_banner" x="30" y="30" width="1140" height="570" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="4"/>
+      <feGaussianBlur stdDeviation="10"/>
+      <feComposite in2="hardAlpha" operator="out"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.1 0"/>
+      <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_banner"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_banner" result="shape"/>
+    </filter>
+  </defs>
+</svg>

@@ -372,7 +372,7 @@ const openDatePicker = () => {
 }
 
 onMounted(() => {
-  const today = new Date().toISOString().slice(0, 10)
+  const today = new Date().toLocaleDateString('en-CA')
   if (!q.value.start) q.value.start = today
   if (!q.value.end) q.value.end = today
   fetchPrices()
@@ -387,7 +387,7 @@ onUnmounted(() => {
 const reset = () => {
   q.value.market = ''
   q.value.commodity = ''
-  const today = new Date().toISOString().slice(0, 10)
+  const today = new Date().toLocaleDateString('en-CA')
   q.value.start = today
   q.value.end = today
   router.replace({ path: route.path, query: {} })

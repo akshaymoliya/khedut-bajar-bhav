@@ -315,7 +315,7 @@ useHead({
 const { translate } = useI18n()
 const t = translate
 const router = useRouter()
-const { query: q, fetchPrices, summary, commodities, rows } = usePrices()
+const { query: q, fetchPrices, fetchCommodities, summary, commodities, rows } = usePrices()
 
 const categories = [
   { name: 'Onion', label: 'Vegetables', icon: '🥬', key: 'vegetable' },
@@ -371,7 +371,20 @@ const highlights = computed(() => {
 
 const latest = computed(() => rows.value.slice(0, 8))
 
-onMounted(fetchPrices)
+onMounted(async () => {
+  await fetchCommodities()
+  const today = new Date().toLocaleDateString('en-CA')
+  q.value.start = today
+  q.value.end = today
+  await fetchPrices({ limit: 3 })
+  
+  if (rows.value.length === 0) {
+    const yesterday = new Date(Date.now() - 86400000).toLocaleDateString('en-CA')
+    q.value.start = yesterday
+    q.value.end = yesterday
+    await fetchPrices({ limit: 3 })
+  }
+})
 </script>
 
 <style scoped>

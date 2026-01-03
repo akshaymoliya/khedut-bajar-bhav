@@ -15,7 +15,52 @@ export function usePrices() {
   const loading = useState('prices.loading', () => false)
   const error = useState('prices.error', () => null)
 
-  const fetchPrices = async () => {
+  const fetchCommodities = async () => {
+    // 1. Check in-memory state (Nuxt useState)
+    if (commodities.value && commodities.value.length > 0) {
+      return
+    }
+
+    // 2. Check persistent cache (localStorage)
+    const CACHE_KEY = 'crop_list_cache'
+    if (process.client) {
+      const cached = localStorage.getItem(CACHE_KEY)
+      if (cached) {
+        try {
+          const parsed = JSON.parse(cached)
+          if (parsed && parsed.length > 0) {
+            commodities.value = parsed
+            return
+          }
+        } catch (e) {
+          console.warn('Failed to parse crop list cache', e)
+        }
+      }
+    }
+
+    const client = useSupabaseClient()
+    try {
+      const { data, error: err } = await client
+        .from('crops')
+        .select('name, local_name')
+        .order('name')
+      
+      if (err) throw err
+      if (data) {
+        const list = data.map(c => c.local_name || c.name)
+        commodities.value = list
+        
+        // 3. Update persistent cache
+        if (process.client) {
+          localStorage.setItem(CACHE_KEY, JSON.stringify(list))
+        }
+      }
+    } catch (e) {
+      console.error('Error fetching commodities:', e)
+    }
+  }
+
+  const fetchPrices = async (options = {}) => {
     loading.value = true
     error.value = null
     const client = useSupabaseClient()
@@ -56,6 +101,10 @@ export function usePrices() {
       // Note: Ordering by joined columns can be tricky. Default sort by date.
       supabaseQuery = supabaseQuery.order('price_date', { ascending: false })
 
+      if (options.limit) {
+        supabaseQuery = supabaseQuery.limit(options.limit)
+      }
+
       const { data, error: err } = await supabaseQuery
 
       if (err) throw err
@@ -74,7 +123,11 @@ export function usePrices() {
 
       // Extract unique lists for potentially other uses
       markets.value = [...new Set(rows.value.map(r => r.market))].sort()
-      commodities.value = [...new Set(rows.value.map(r => r.commodity))].sort()
+      // Only update commodities from prices if we are NOT using a limit, 
+      // or if we haven't fetched them specifically yet.
+      if (!options.limit || commodities.value.length === 0) {
+        commodities.value = [...new Set(rows.value.map(r => r.commodity))].sort()
+      }
 
     } catch (e) {
       console.error(e)
@@ -110,6 +163,7 @@ export function usePrices() {
     loading,
     error,
     fetchPrices,
+    fetchCommodities,
     commodities: computed(() => commodities.value),
     markets: computed(() => markets.value),
     summary,
