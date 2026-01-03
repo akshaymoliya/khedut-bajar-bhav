@@ -9,8 +9,8 @@
       >
         <img src="/favicon.ico" alt="Logo" class="h-8 w-8 rounded" />
         <div>
-          <p class="text-lg font-bold text-slate-900">{{ t('brand.name') }}</p>
-          <p class="text-xs text-slate-600">{{ t('brand.tagline') }}</p>
+          <p class="text-lg font-bold text-slate-900 leading-tight">{{ t('brand.name') }}</p>
+          <p class="text-[10px] sm:text-xs text-slate-600 truncate max-w-[180px] sm:max-w-none">{{ t('brand.tagline') }}</p>
         </div>
       </NuxtLink>
 
@@ -18,6 +18,7 @@
       <nav class="nav hidden lg:flex items-center gap-6" aria-label="Main">
         <NuxtLink exact-active-class="active" to="/">{{ t('nav.home') }}</NuxtLink>
         <NuxtLink exact-active-class="active" to="/market">{{ t('nav.market') }}</NuxtLink>
+        <NuxtLink exact-active-class="active" to="/weather">{{ t('nav.weather') }}</NuxtLink>
         <NuxtLink exact-active-class="active" to="/about">{{ t('nav.about') }}</NuxtLink>
         <NuxtLink exact-active-class="active" to="/contact">{{ t('nav.contact') }}</NuxtLink>
       </nav>
@@ -95,6 +96,7 @@
         <nav class="flex flex-col gap-2 px-4 pb-4">
           <NuxtLink @click="closeMobile" to="/" class="btn btn-outline text-lg justify-start">{{ t('nav.home') }}</NuxtLink>
           <NuxtLink @click="closeMobile" to="/market" class="btn btn-outline text-lg justify-start">{{ t('nav.market') }}</NuxtLink>
+          <NuxtLink @click="closeMobile" to="/weather" class="btn btn-outline text-lg justify-start">{{ t('nav.weather') }}</NuxtLink>
           <NuxtLink @click="closeMobile" to="/about" class="btn btn-outline text-lg justify-start">{{ t('nav.about') }}</NuxtLink>
           <NuxtLink @click="closeMobile" to="/contact" class="btn btn-outline text-lg justify-start">{{ t('nav.contact') }}</NuxtLink>
 

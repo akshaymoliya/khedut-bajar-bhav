@@ -32,7 +32,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
               </svg>
               <!-- Dropdown -->
-              <ul v-if="showDropdown && filteredMarkets.length > 0" class="absolute z-10 w-full bg-white border border-slate-200 shadow-lg rounded-md mt-1 max-h-60 overflow-auto">
+              <ul v-if="showDropdown && filteredMarkets.length > 0" class="absolute z-20 w-full bg-white border border-slate-200 shadow-lg rounded-md mt-1 max-h-60 overflow-auto">
                 <li 
                   v-for="m in filteredMarkets" 
                   :key="m.id" 
@@ -63,7 +63,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
               </svg>
               <!-- Crop Dropdown -->
-              <ul v-if="showCropDropdown && cropSuggestions.length > 0" class="absolute z-10 w-full bg-white border border-slate-200 shadow-lg rounded-md mt-1 max-h-60 overflow-auto">
+              <ul v-if="showCropDropdown && cropSuggestions.length > 0" class="absolute z-20 w-full bg-white border border-slate-200 shadow-lg rounded-md mt-1 max-h-60 overflow-auto">
                 <li 
                   v-for="c in cropSuggestions" 
                   :key="c.id" 
@@ -78,8 +78,8 @@
           </div>
 
           <div class="space-y-1.5">
-            <label for="date" class="block text-sm font-semibold text-slate-700">{{ t('market.dateLabel') }}</label>
-            <div class="relative cursor-pointer" @click="openDatePicker">
+            <label class="block text-sm font-semibold text-slate-700">{{ t('market.dateLabel') }}</label>
+            <div class="relative" @click.stop.prevent="openDatePicker">
               <!-- Visual Display Input (dd-mm-yyyy) -->
               <input 
                 type="text" 
@@ -281,6 +281,18 @@ const cropSuggestions = ref([])
 const showCropDropdown = ref(false)
 const cropContainer = ref(null)
 
+const debounce = (fn, delay) => {
+  let timeoutId
+  return (...args) => {
+    clearTimeout(timeoutId)
+    timeoutId = setTimeout(() => fn(...args), delay)
+  }
+}
+
+const debouncedFetchCrops = debounce((val) => {
+  fetchCropSuggestions(val)
+}, 300)
+
 const handleClickOutside = (event) => {
   if (marketContainer.value && !marketContainer.value.contains(event.target)) {
     showDropdown.value = false
@@ -292,9 +304,9 @@ const handleClickOutside = (event) => {
 
 const handleCropInput = (e) => {
   const val = e.target.value
+  showCropDropdown.value = true // Re-open if closed
   if (!val || val.trim() === '') {
     cropSuggestions.value = []
-    // If cleared, fetch all
     applyFilters()
     return
   }
@@ -302,10 +314,11 @@ const handleCropInput = (e) => {
     cropSuggestions.value = []
     return
   }
-  fetchCropSuggestions(val)
+  debouncedFetchCrops(val)
 }
 
 const handleMarketInput = () => {
+    showDropdown.value = true // Re-open if closed
     // If user clears the market input, fetch all
     if (!q.value.market || q.value.market.trim() === '') {
         applyFilters()
@@ -399,7 +412,14 @@ const applyFilters = () => {
   if (q.value.market && q.value.market.trim() !== '') nextQuery.market = q.value.market.trim()
   if (q.value.commodity && q.value.commodity.trim() !== '') nextQuery.commodity = q.value.commodity.trim()
   if (q.value.start) nextQuery.start = q.value.start
-  router.push({ path: route.path, query: nextQuery })
+  
+  // If the query is identically same as current, router won't trigger watch, so we hit API manually
+  const isSame = JSON.stringify(nextQuery) === JSON.stringify(route.query)
+  if (isSame) {
+    fetchPrices()
+  } else {
+    router.push({ path: route.path, query: nextQuery })
+  }
 }
 
 // Watch navigation changes

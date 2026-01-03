@@ -8,12 +8,7 @@
     <footer class="border-t border-slate-200 bg-white/70">
       <div class="container py-6 text-sm text-slate-600 flex flex-col sm:flex-row items-center justify-between gap-2">
         <p>
-          © {{ new Date().getFullYear() }} Gujarat Market Price Tracker
-        </p>
-        <p class="flex items-center gap-2">
-          <span class="badge">WCAG AA</span>
-          <span class="badge">Nuxt 4</span>
-          <span class="badge">Tailwind 4</span>
+          © {{ new Date().getFullYear() }} {{ t('brand.name') }}
         </p>
       </div>
     </footer>
@@ -22,6 +17,8 @@
 
 <script setup>
 import AppHeader from './components/AppHeader.vue';
+
+const { translate: t } = useI18n()
 
 useHead({
   meta: [

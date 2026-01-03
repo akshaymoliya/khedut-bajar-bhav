@@ -35,6 +35,25 @@
       </div>
     </div>
 
+    <!-- Quick Weather Link -->
+    <div class="px-4 -mt-4 sm:-mt-8 mb-8">
+      <NuxtLink 
+        to="/weather" 
+        class="flex items-center justify-between p-4 bg-blue-50 border border-blue-100 rounded-2xl shadow-sm hover:shadow-md transition-all group max-w-lg mx-auto"
+      >
+        <div class="flex items-center gap-4">
+          <div class="text-3xl group-hover:scale-110 transition-transform">☀️</div>
+          <div>
+            <p class="font-bold text-slate-900 leading-tight">{{ translate('weather.title') }}</p>
+            <p class="text-xs text-slate-500">{{ translate('weather.subtitle') }}</p>
+          </div>
+        </div>
+        <span class="text-primary font-bold text-sm bg-white px-3 py-1 rounded-full shadow-sm">
+          Check &rarr;
+        </span>
+      </NuxtLink>
+    </div>
+
     <!-- Quick Access Links (Chips) -->
     <section aria-labelledby="quicklinks-title" class="px-4 text-center">
       <h2 id="quicklinks-title" class="sr-only">
