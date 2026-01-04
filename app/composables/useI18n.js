@@ -82,8 +82,33 @@ const messages = {
       dewAdvise: 'Dew (Oss) expected. Late fertilization could be more effective.',
       fogAdvise: 'Dense fog (Dhummas) expected. Be careful while traveling to market yard.'
     },
-    about: { title: 'About' },
-    contact: { title: 'Contact' },
+    about: { 
+      title: 'About Our Portal',
+      subtitle: 'Empowering Gujarat\'s Farmers with Real-Time Market Intelligence',
+      description: 'Khedut Bajar Bhav is a dedicated digital platform designed specifically for the hardworking farmers of Gujarat. Our mission is to bridge the gap between market yards and your farm, ensuring you never miss a price update.',
+      vision: 'Our Vision',
+      visionDesc: 'To be the most trusted digital companion for every farmer in Gujarat, helping them get the fair value for their hard work through transparency and technology.',
+      featuresTitle: 'Why Farmers Trust Us',
+      feature1Title: 'Live APMC Rates',
+      feature1Desc: 'Direct and accurate price updates from all major Gujarat market yards including Rajkot, Gondal, and Ahmedabad.',
+      feature2Title: 'Easy to Use',
+      feature2Desc: 'Simple, fast, and available in both Gujarati and English, designed to work perfectly on any mobile device.',
+      feature3Title: 'Market Insights',
+      feature3Desc: 'Track price trends and historical data to decide the best time to sell your crops for maximum profit.',
+      feature4Title: 'Weather Guidance',
+      feature4Desc: 'Receive localized weather forecasts and agricultural advice to plan your field activities better.'
+    },
+    contact: { 
+      title: 'Contact Us',
+      subtitle: 'Have questions or feedback? Send us a message and we will get back to you.',
+      name: 'Your Name',
+      email: 'Email Address',
+      message: 'How can we help you?',
+      send: 'Send Message',
+      success: 'Thank you! Your message has been sent.',
+      helpTitle: 'Need Help?',
+      helpDesc: 'Are you a farmer looking for specific market data? Or a trader wanting to partner? Let us know!'
+    },
   },
   gu: {
     brand: {
@@ -161,8 +186,33 @@ const messages = {
       dewAdvise: 'ઝાકળ (ઓસ) પડવાની શક્યતા છે. મોડેથી પિયત કે ખાતર આપવું વધુ અનુકૂળ રહેશે.',
       fogAdvise: 'ભારે ધૂમ્મસની શક્યતા છે. માર્કેટ યાર્ડ જતી વખતે વાહન સાચવીને ચલાવવું.'
     },
-    about: { title: 'વિશે' },
-    contact: { title: 'સંપર્ક' },
+    about: { 
+      title: 'અમારા પોર્ટલ વિશે',
+      subtitle: 'ગુજરાતના ખેડૂતોને સચોટ બજાર માહિતી સાથે સશક્ત બનાવવા',
+      description: 'ખેડૂત બજાર ભાવ એ ગુજરાતના મહેનતુ ખેડૂતો માટે ખાસ તૈયાર કરવામાં આવેલું ડિજિટલ પ્લેટફોર્મ છે. અમારો ઉદ્દેશ્ય માર્કેટ યાર્ડ અને તમારા ખેતર વચ્ચેના અંતરને ઓછું કરવાનો છે, જેથી તમે ક્યારેય ભાવની માહિતી ગુમાવો નહીં.',
+      vision: 'અમારું વિઝન',
+      visionDesc: 'ગુજરાતના દરેક ખેડૂત માટે સૌથી વિશ્વસનીય ડિજિટલ સાથી બનવું, અને પારદર્શિતા અને ટેકનોલોજી દ્વારા તેમને તેમની મહેનતનું યોગ્ય વળતર અપાવવું.',
+      featuresTitle: 'ખેડૂતો કેમ અમારા પર વિશ્વાસ કરે છે',
+      feature1Title: 'જીવંત APMC ભાવ',
+      feature1Desc: 'રાજકોટ, ગોંડલ અને અમદાવાદ સહિત ગુજરાતના તમામ મુખ્ય માર્કેટ યાર્ડના સીધા અને સચોટ ભાવ.',
+      feature2Title: 'સરળ ઉપયોગ',
+      feature2Desc: 'ગુજરાતી અને અંગ્રેજી બંને ભાષામાં ઉપલબ્ધ, કોઈપણ મોબાઈલ પર સરળતાથી વાપરી શકાય તેવી ડિઝાઇન.',
+      feature3Title: 'બજાર માર્ગદર્શન',
+      feature3Desc: 'મહત્તમ નફો મેળવવા માટે તમારા પાકને વેચવાનો શ્રેષ્ઠ સમય નક્કી કરવા માટે ભાવના વલણો તપાસો.',
+      feature4Title: 'હવામાન માર્ગદર્શન',
+      feature4Desc: 'ખેતીના કામનું બહેતર આયોજન કરવા માટે સ્થાનિક હવામાન આગાહી અને કૃષિ સલાહ મેળવો.'
+    },
+    contact: { 
+      title: 'અમારો સંપર્ક કરો',
+      subtitle: 'કોઈ પ્રશ્ન કે પ્રતિભાવ છે? અમને સંદેશ મોકલો અને અમે તમારો સંપર્ક કરીશું.',
+      name: 'તમારું નામ',
+      email: 'ઈમેઈલ એડ્રેસ',
+      message: 'અમે તમને કેવી રીતે મદદ કરી શકીએ?',
+      send: 'સંદેશ મોકલો',
+      success: 'આભાર! તમારો સંદેશ મોકલાઈ ગયો છે.',
+      helpTitle: 'મદદની જરૂર છે?',
+      helpDesc: 'શું તમે કોઈ ખાસ બજારની માહિતી શોધી રહ્યા છો? અથવા અમને કોઈ સૂચન આપવા માંગો છો? અમને જણાવો!'
+    },
   },
 }
 

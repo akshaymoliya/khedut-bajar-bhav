@@ -99,23 +99,6 @@
       </div>
     </section>
 
-    <!-- Browse by Category -->
-    <section aria-labelledby="category-title" class="px-4 sm:px-0">
-      <h2 id="category-title" class="text-xl sm:text-2xl font-bold text-slate-900 mb-6 flex items-center gap-2">
-        <span class="text-2xl">📦</span> {{ translate('index.categories.title') || 'Browse by Category' }}
-      </h2>
-      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-4">
-        <NuxtLink 
-          v-for="cat in categories" 
-          :key="cat.key"
-          :to="{ path: '/market', query: { commodity: cat.name } }"
-          class="flex flex-col items-center justify-center p-4 bg-white border border-slate-100 rounded-xl shadow-sm hover:shadow-md hover:border-primary/30 hover:bg-primary/5 transition-all group"
-        >
-          <span class="text-4xl mb-2 group-hover:scale-110 transition-transform">{{ cat.icon }}</span>
-          <span class="font-semibold text-slate-700 group-hover:text-primary text-center text-sm sm:text-base">{{ cat.label }}</span>
-        </NuxtLink>
-      </div>
-    </section>
 
     <!-- How it Works Section -->
     <section aria-labelledby="how-title" class="px-4 sm:px-0 py-8">
@@ -336,14 +319,6 @@ const t = translate
 const router = useRouter()
 const { query: q, fetchPrices, fetchCommodities, summary, commodities, rows } = usePrices()
 
-const categories = [
-  { name: 'Onion', label: 'Vegetables', icon: '🥬', key: 'vegetable' },
-  { name: 'Mango', label: 'Fruits', icon: '🍎', key: 'fruit' },
-  { name: 'Wheat', label: 'Grains', icon: '🌾', key: 'grains' },
-  { name: 'Groundnut', label: 'Oilseeds', icon: '🌻', key: 'oilseeds' },
-  { name: 'Jeera', label: 'Spices', icon: '🌶️', key: 'spices' },
-  { name: 'Cotton', label: 'Cotton', icon: '🧵', key: 'cotton' },
-]
 
 const gotoMarket = () => {
   if (q.value.commodity?.trim()) {

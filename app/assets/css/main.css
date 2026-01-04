@@ -21,7 +21,7 @@
 /* Base styles and CSS nesting */
 html {
   font-family: var(--font-sans);
-  color: theme(colors.slate.800);
+  color: var(--color-slate-800);
   background: var(--color-bg);
 }
 
