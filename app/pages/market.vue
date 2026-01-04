@@ -154,6 +154,10 @@
                   <span class="text-sm font-medium">{{ r.market }}</span>
                 </div>
               </div>
+              <div class="text-right">
+                <p class="text-[10px] uppercase text-slate-400 font-bold tracking-wider">{{ t('market.avg') }}</p>
+                <p class="text-xl font-black text-primary">₹{{ r.avgPrice.toLocaleString() }}</p>
+              </div>
             </div>
 
             <div class="h-px bg-slate-100"></div>

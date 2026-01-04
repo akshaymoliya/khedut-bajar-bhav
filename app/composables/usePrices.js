@@ -110,16 +110,20 @@ export function usePrices() {
       if (err) throw err
 
       // Transform data
-      rows.value = data.map(item => ({
-        date: item.price_date ? item.price_date.slice(0, 10) : null,
-        commodity: item.crops?.local_name || item.crops?.name || 'Unknown',
-        market: item.market_yards?.name || 'Unknown',
-        minPrice: Number(item.min_price) || 0,
-        maxPrice: Number(item.max_price) || 0,
-        avgPrice: Number(item.modal_price) || 0,
-        unit: item.unit || '₹/20kg',
-        arrival: item.arrival_qty
-      }))
+      rows.value = data.map(item => {
+        const min = Number(item.min_price) || 0
+        const max = Number(item.max_price) || 0
+        return {
+          date: item.price_date ? item.price_date.slice(0, 10) : null,
+          commodity: item.crops?.local_name || item.crops?.name || 'Unknown',
+          market: item.market_yards?.name || 'Unknown',
+          minPrice: min,
+          maxPrice: max,
+          avgPrice: Math.round((min + max) / 2),
+          unit: item.unit || '₹/20kg',
+          arrival: item.arrival_qty
+        }
+      })
 
       // Extract unique lists for potentially other uses
       markets.value = [...new Set(rows.value.map(r => r.market))].sort()
