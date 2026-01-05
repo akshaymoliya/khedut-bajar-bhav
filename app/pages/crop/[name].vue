@@ -318,25 +318,29 @@ const trendPoints = computed(() => {
     dateMap.get(d).push(r)
   })
 
-  const sortedDates = Array.from(dateMap.keys()).sort()
+  // Ensure we use the same 5 days as the table, but chronological (Left to Right)
+  const sortedDates = [...uniqueDates.value].sort()
   
   return sortedDates.map(d => {
     const dailyRows = dateMap.get(d)
-    // If market selected, prioritize that market's data
-    const marketSpecific = dailyRows.find(r => r.market_yards.name === selectedMarket)
-    const target = marketSpecific || dailyRows[0] // fallback to first market if selected not found for this date
     
-    // Calculate average for the value
-    const avg = target ? (target.min_price + target.max_price) / 2 : 0
+    // Strictly find the selected market's data
+    const target = dailyRows.find(r => r.market_yards.name === selectedMarket)
+    
+    // If we have data for this market on this day, use it. 
+    // Otherwise, if NO market is selected, use the first available one as fallback.
+    const pointData = target || (!selectedMarket ? dailyRows[0] : null)
+    
+    if (!pointData) return null
     
     return {
-      value: avg,
-      min: target?.min_price || 0,
-      max: target?.max_price || 0,
+      value: (pointData.min_price + pointData.max_price) / 2,
+      min: pointData.min_price,
+      max: pointData.max_price,
       date: formatDate(d),
-      market: target?.market_yards?.name || ''
+      market: pointData.market_yards?.name || ''
     }
-  })
+  }).filter(p => p !== null)
 })
 
 const trendLabel = computed(() => {
