@@ -71,6 +71,8 @@ const messages = {
       marketWise: 'Prices in Other Markets',
       pricePer20kg: 'Prices are per 20kg (1 Mann)',
       backToMarket: 'Back to Market',
+      shareWhatsApp: 'Share on WhatsApp',
+      shareText: 'Check out the latest {crop} prices at {market}! Highest today is ₹{price}. See more details at: ',
     },
     weather: { 
       title: 'Agricultural Weather', 
@@ -193,6 +195,8 @@ const messages = {
       marketWise: 'અન્ય બજારના ભાવ',
       pricePer20kg: 'બધા ભાવ ૨૦ કિલો (૧ મણ) ના છે',
       backToMarket: 'પાછા બજાર પર',
+      shareWhatsApp: 'વોટ્સએપ પર શેર કરો',
+      shareText: '{market} માં {crop} ના આજના તાજા ભાવ જુઓ! આજનો સૌથી વધુ ભાવ ₹{price} છે. વધુ માહિતી માટે અહીં ક્લિક કરો: ',
     },
     weather: { 
       title: 'ખેતીવાડી હવામાન', 

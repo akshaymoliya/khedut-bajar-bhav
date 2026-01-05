@@ -11,6 +11,15 @@
         <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">{{ commodityName }}</h1>
         <p class="text-xs sm:text-sm text-slate-500 font-bold uppercase tracking-wider opacity-80">{{ t('crop.details') }}</p>
       </div>
+      <button 
+        @click="shareOnWhatsApp"
+        class="ml-auto btn bg-[#25D366] hover:bg-[#128C7E] text-white rounded-full px-4 sm:px-6 py-2 sm:py-2.5 flex items-center gap-2 shadow-lg shadow-green-200 active:scale-95 transition-all text-xs sm:text-sm font-bold"
+      >
+        <svg class="h-4 w-4 sm:h-5 sm:w-5 fill-current" viewBox="0 0 24 24">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884 0 2.225.569 3.808 1.565 5.405l-.992 3.62 3.916-.924zm11.367-7.46c-.059-.098-.214-.154-.448-.271-.234-.117-1.384-.682-1.599-.762-.214-.078-.371-.117-.527.117-.156.234-.604.762-.741.917-.135.156-.273.174-.506.058-.234-.117-.984-.363-1.876-1.158-.694-.621-1.163-1.388-1.3-1.623-.135-.234-.014-.361.103-.477.104-.105.234-.271.35-.409.117-.135.156-.234.234-.388.078-.156.039-.292-.019-.409-.059-.117-.527-1.268-.722-1.735-.19-.456-.381-.393-.527-.4h-.45c-.156 0-.409.058-.624.292-.214.234-.819.8-.819 1.948 0 1.148.838 2.259.956 2.416.117.156 1.647 2.516 3.991 3.527.558.241 1.076.399 1.455.517.585.186 1.117.16 1.538.097.471-.071 1.384-.565 1.579-1.111.196-.547.196-1.015.137-1.111z" />
+        </svg>
+        <span class="hidden sm:inline">{{ t('crop.shareWhatsApp') }}</span>
+      </button>
     </div>
 
     <!-- Loading State -->
@@ -28,7 +37,7 @@
     <!-- Content -->
     <div v-else class="space-y-6 sm:space-y-8 animate-in fade-in slide-in-from-bottom-4 duration-700">
       <!-- Summary Cards -->
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 px-1">
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 px-1">
         <!-- Main Price Card -->
         <div class="card bg-white border-0 ring-1 ring-slate-200 shadow-sm p-5 sm:p-6 flex flex-col justify-between">
           <div>
@@ -38,7 +47,7 @@
           <p class="text-xs text-slate-400 mt-4 font-medium">{{ t('crop.pricePer20kg') }}</p>
         </div>
 
-        <div class="grid grid-cols-2 sm:grid-cols-1 gap-4 sm:col-span-1">
+        <div class="grid grid-cols-2 lg:grid-cols-1 gap-4 sm:col-span-1">
           <div class="card bg-white border-0 ring-1 ring-slate-200 shadow-sm p-4 flex flex-col justify-center">
             <p class="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{{ t('crop.lowestToday') }}</p>
             <p class="text-2xl font-black text-red-500 mt-1">₹{{ minPriceOverall.toLocaleString() }}</p>
@@ -61,6 +70,18 @@
           <div class="mt-4 flex items-center gap-2 bg-primary/10 w-fit px-3 py-1 rounded-full text-[10px] font-bold text-primary">
             <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
             LIVE UPDATES
+          </div>
+        </div>
+
+        <!-- NEW: Market Arrival Alert Placeholder -->
+        <div class="card bg-gradient-to-br from-primary to-primary/80 p-5 sm:p-6 border-0 shadow-lg shadow-primary/20 hover:scale-[1.02] transition-transform cursor-pointer group relative overflow-hidden flex flex-col justify-center">
+          <div class="absolute -right-4 -top-4 opacity-10 group-hover:scale-110 transition-transform">
+            <svg class="h-24 w-24 text-white" fill="currentColor" viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.89 2 2 2zm6-6v-5c0-3.07-1.64-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.63 5.36 6 7.92 6 11v5l-2 2v1h16v-1l-2-2z"/></svg>
+          </div>
+          <div class="relative z-10">
+            <p class="text-[10px] sm:text-xs font-bold text-white/80 uppercase tracking-widest mb-1">Coming Soon</p>
+            <h3 class="text-xl font-black text-white leading-tight">Price Alerts</h3>
+            <p class="text-xs font-medium text-white/90 mt-1">Get notified when prices hit your target!</p>
           </div>
         </div>
       </div>
@@ -209,6 +230,17 @@ const client = useSupabaseClient()
 
 const commodityName = route.params.name
 const selectedMarket = route.query.market
+
+const shareOnWhatsApp = () => {
+  const text = t('crop.shareText')
+    .replace('{crop}', commodityName)
+    .replace('{market}', selectedMarket)
+    .replace('{price}', maxPriceOverall.value.toLocaleString())
+  
+  const url = `https://www.khedutbajarbhav.online${route.fullPath}`
+  const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + url)}`
+  window.open(whatsappUrl, '_blank')
+}
 
 const rawData = ref([])
 const loading = ref(true)
