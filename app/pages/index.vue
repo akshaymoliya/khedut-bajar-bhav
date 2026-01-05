@@ -86,16 +86,25 @@
       </div>
       
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        <PriceCard 
+        <NuxtLink 
           v-for="h in highlights" 
           :key="h.key" 
-          :commodity="h.commodity" 
-          :market="h.market" 
-          :avg="h.avg" 
-          :min="h.min" 
-          :max="h.max" 
-          :trend="h.trend" 
-        />
+          :to="{ 
+            name: 'crop-name', 
+            params: { name: h.commodity },
+            query: { market: h.market }
+          }"
+          class="block hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200"
+        >
+          <PriceCard 
+            :commodity="h.commodity" 
+            :market="h.market" 
+            :avg="h.avg" 
+            :min="h.min" 
+            :max="h.max" 
+            :trend="h.trend" 
+          />
+        </NuxtLink>
       </div>
     </section>
 

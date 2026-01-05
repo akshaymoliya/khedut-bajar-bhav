@@ -135,10 +135,15 @@
 
       <!-- Cards Grid -->
       <div v-else class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        <div 
+        <NuxtLink 
           v-for="r in filtered" 
           :key="r.date + r.market + r.commodity" 
-          class="card group bg-white hover:border-primary/50 transition-colors"
+          :to="{ 
+            name: 'crop-name', 
+            params: { name: r.commodity },
+            query: { market: q.market }
+          }"
+          class="card group bg-white hover:border-primary/50 transition-colors cursor-pointer block"
         >
           <div class="p-4 flex flex-col gap-3">
             <div class="flex justify-between items-start">
@@ -173,7 +178,7 @@
               </div>
             </div>
           </div>
-        </div>
+        </NuxtLink>
       </div>
     </div>
   </section>
