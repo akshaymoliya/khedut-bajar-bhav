@@ -45,6 +45,7 @@ const messages = {
       search: 'Search',
       filters: { commodity: 'Commodity', market: 'Market', start: 'Start Date', end: 'End Date' },
       marketLabel: 'Find Market Yard',
+      commodityLabel: 'Search Commodity',
       dateLabel: 'Select Date',
       min: 'Min Price',
       max: 'Max Price',
@@ -72,7 +73,7 @@ const messages = {
       pricePer20kg: 'Prices are per 20kg (1 Mann)',
       backToMarket: 'Back to Market',
       shareWhatsApp: 'Share on WhatsApp',
-      shareText: 'Check out the latest {crop} prices at {market}! Highest today is ₹{price}. See more details at: ',
+      shareText: '📊 Check out today\'s latest {crop} prices at {market}! \n\n💰 Today\'s highest price is {price}. \n\n👇 For more details, click here: ',
     },
     weather: { 
       title: 'Agricultural Weather', 
@@ -169,6 +170,7 @@ const messages = {
       search: 'શોધો',
       filters: { commodity: 'વસ્તુ', market: 'બજાર', start: 'શરૂઆતની તારીખ', end: 'અંતિમ તારીખ' },
       marketLabel: 'માર્કેટ યાર્ડ શોધો',
+      commodityLabel: 'પાક શોધો',
       dateLabel: 'તારીખ પસંદ કરો',
       min: 'લઘુત્તમ ભાવ',
       max: 'મહત્તમ ભાવ',
@@ -196,7 +198,7 @@ const messages = {
       pricePer20kg: 'બધા ભાવ ૨૦ કિલો (૧ મણ) ના છે',
       backToMarket: 'પાછા બજાર પર',
       shareWhatsApp: 'વોટ્સએપ પર શેર કરો',
-      shareText: '{market} માં {crop} ના આજના તાજા ભાવ જુઓ! આજનો સૌથી વધુ ભાવ ₹{price} છે. વધુ માહિતી માટે અહીં ક્લિક કરો: ',
+      shareText: '📊 {market} માં {crop} ના આજના તાજા ભાવ જુઓ!\n\n💰 આજનો સૌથી વધુ ભાવ {price} છે.\n\n👇 વધુ માહિતી માટે અહીં ક્લિક કરો: ',
     },
     weather: { 
       title: 'ખેતીવાડી હવામાન', 

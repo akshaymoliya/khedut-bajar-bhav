@@ -116,6 +116,7 @@ export function usePrices() {
         return {
           date: item.price_date ? item.price_date.slice(0, 10) : null,
           commodity: item.crops?.local_name || item.crops?.name || 'Unknown',
+          englishName: item.crops?.name || 'Unknown',
           market: item.market_yards?.name || 'Unknown',
           minPrice: min,
           maxPrice: max,

@@ -91,7 +91,7 @@
           :key="h.key" 
           :to="{ 
             name: 'crop-name', 
-            params: { name: h.commodity },
+            params: { name: h.englishName },
             query: { market: h.market }
           }"
           class="block hover:scale-[1.02] active:scale-[0.98] transition-transform duration-200"
@@ -362,7 +362,8 @@ const highlights = computed(() => {
         max: r.maxPrice, 
         trend, 
         key: r.market + r.commodity, 
-        commodity: r.commodity 
+        commodity: r.commodity,
+        englishName: r.englishName
       })
     }
   }

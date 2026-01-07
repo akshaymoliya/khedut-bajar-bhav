@@ -140,7 +140,7 @@
           :key="r.date + r.market + r.commodity" 
           :to="{ 
             name: 'crop-name', 
-            params: { name: r.commodity },
+            params: { name: r.englishName },
             query: { market: q.market }
           }"
           class="card group bg-white hover:border-primary/50 transition-colors cursor-pointer block"

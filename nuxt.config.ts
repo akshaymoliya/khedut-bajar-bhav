@@ -38,6 +38,7 @@ export default defineNuxtConfig({
     name: 'Khedut Bajar Bhav',
   },
   sitemap: {
+    sources: ['/api/sitemap-urls'],
     strictNuxtContentAds: true,
   },
 })

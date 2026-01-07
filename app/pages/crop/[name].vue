@@ -8,7 +8,7 @@
         </svg>
       </NuxtLink>
       <div>
-        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">{{ commodityName }}</h1>
+        <h1 class="text-2xl sm:text-3xl font-extrabold text-slate-900 leading-tight">{{ displayTitle }}</h1>
         <p class="text-xs sm:text-sm text-slate-500 font-bold uppercase tracking-wider opacity-80">{{ t('crop.details') }}</p>
       </div>
       <button 
@@ -93,7 +93,7 @@
           <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
             <div>
               <h2 class="text-xl font-black text-slate-900">{{ t('crop.priceTrend') }}</h2>
-              <p class="text-sm text-slate-500 font-medium">{{ selectedMarket }} - {{ commodityName }}</p>
+              <p class="text-sm text-slate-500 font-medium">{{ selectedMarket }} - {{ displayTitle }}</p>
             </div>
             <div class="flex gap-3">
               <div class="flex items-center gap-1.5 text-xs font-bold text-slate-400">
@@ -202,7 +202,7 @@
           <NuxtLink 
             v-for="m in otherMarkets" 
             :key="m.market"
-            :to="{ path: `/crop/${commodityName}`, query: { market: m.market } }"
+            :to="{ path: `/crop/${rawData[0]?.crops?.name || commodityName}`, query: { market: m.market } }"
             class="card bg-white p-4 border-0 ring-1 ring-slate-200 hover:ring-primary/50 hover:shadow-md transition-all group"
           >
             <p class="text-[10px] font-bold text-slate-400 uppercase truncate mb-2">{{ m.market }}</p>
@@ -231,14 +231,32 @@ const client = useSupabaseClient()
 const commodityName = route.params.name
 const selectedMarket = route.query.market
 
+const displayTitle = computed(() => {
+  if (rawData.value.length > 0) {
+    const crop = rawData.value[0].crops
+    return lang.value === 'gu' ? (crop.local_name || crop.name) : crop.name
+  }
+  return commodityName
+})
+
 const shareOnWhatsApp = () => {
+  // Use local_name (Gujarati) if available for a more natural message
+  const cropDisplay = (rawData.value[0]?.crops?.local_name) 
+    ? rawData.value[0].crops.local_name 
+    : (rawData.value[0]?.crops?.name || commodityName)
+    
+  const marketDisplay = selectedMarket || 'Gujarat'
+
   const text = t('crop.shareText')
-    .replace('{crop}', commodityName)
-    .replace('{market}', selectedMarket)
-    .replace('{price}', maxPriceOverall.value.toLocaleString())
+    .replace('{crop}', `${cropDisplay}`)
+    .replace('{market}', `${marketDisplay}`)
+    .replace('{price}', `₹${maxPriceOverall.value.toLocaleString()}`)
   
-  const url = `https://www.khedutbajarbhav.online${route.fullPath}`
-  const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + url)}`
+  // Construct a clean URL for the shared message
+  const url = `https://www.khedutbajarbhav.online/crop/${commodityName}?market=${encodeURIComponent(selectedMarket || '')}`
+  
+  // Combine with double newlines for the "farmer-friendly" spacing requested
+  const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + '\n\n' + url)}`
   window.open(whatsappUrl, '_blank')
 }
 
@@ -475,12 +493,12 @@ useHead({
     { property: 'og:description', content: pageDesc },
     { property: 'og:type', content: 'website' },
     { property: 'og:url', content: computed(() => `https://www.khedutbajarbhav.online${route.fullPath}`) },
-    { property: 'og:image', content: 'https://www.khedutbajarbhav.online/og-image.png' }, // Fallback OG image
+    { property: 'og:image', content: 'https://www.khedutbajarbhav.online/logo.png' }, // Fallback OG image
     // Twitter
     { name: 'twitter:card', content: 'summary_large_image' },
     { name: 'twitter:title', content: pageTitle },
     { name: 'twitter:description', content: pageDesc },
-    { name: 'twitter:image', content: 'https://www.khedutbajarbhav.online/og-image.png' },
+    { name: 'twitter:image', content: 'https://www.khedutbajarbhav.online/logo.png' },
     // Geo Tags
     { name: 'geo.region', content: 'IN-GJ' },
     { name: 'geo.placename', content: 'Gujarat' }
