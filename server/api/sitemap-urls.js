@@ -16,12 +16,20 @@ export default defineEventHandler(async (event) => {
     priority: 0.8
   })) || []
 
-  // You can also add market routes here if needed
-  // const { data: markets } = await client.from('market_yards').select('name')
-  // const marketRoutes = markets?.map(m => ({ loc: `/market?market=${encodeURIComponent(m.name)}` })) || []
+  // Fetch all unique markets to generate /market?market=[name] routes
+  const { data: markets } = await client
+    .from('market_yards')
+    .select('name')
+  
+  const marketRoutes = markets?.map(m => ({
+    loc: `/market?market=${encodeURIComponent(m.name)}`,
+    lastmod: new Date().toISOString(),
+    changefreq: 'daily',
+    priority: 0.7
+  })) || []
 
   return [
     ...cropRoutes,
-    // ...marketRoutes
+    ...marketRoutes
   ]
 })

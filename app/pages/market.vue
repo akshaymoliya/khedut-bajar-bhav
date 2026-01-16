@@ -180,6 +180,24 @@
           </div>
         </NuxtLink>
       </div>
+
+      <!-- Additional Content for SEO -->
+      <div v-if="filtered.length > 0" class="mt-12 bg-slate-50 rounded-2xl p-6 sm:p-8 border-0">
+        <h2 class="text-xl font-bold text-slate-900 mb-4">
+          {{ q.commodity ? `${q.commodity} ` : '' }}{{ q.market ? `in ${q.market} ` : '' }}Market Analysis
+        </h2>
+        <div class="text-slate-600 text-sm sm:text-base leading-relaxed space-y-3">
+          <p>
+            The prices shown above for {{ q.commodity || 'various commodities' }} in {{ q.market || 'Gujarat APMCs' }} are updated daily. 
+            Understanding these trends helps farmers choose the best time and market to sell their produce. 
+            Our platform provides transparent access to minimum, maximum, and average rates.
+          </p>
+          <p v-if="lang === 'gu'">
+            ગુજરાતના માર્કેટ યાર્ડના તાજા અને સચોટ ભાવ ખેડૂતો સુધી પહોંચાડવાનો અમારો ઉદ્દેશ્ય છે. 
+            અહીં તમે કપાસ, મગફળી, ઘઉં અને અન્ય પાકોના આજના બજાર ભાવ જોઈ શકો છો.
+          </p>
+        </div>
+      </div>
     </div>
   </section>
 </template>
@@ -207,9 +225,9 @@ const pageTitle = computed(() => {
   if (q.value.market) parts.push(`${q.value.market} Market`)
   
   if (parts.length > 0) {
-    return `${parts.join(' in ')} Prices - Live Rates | Gujarat APMC`
+    return `${parts.join(' in ')} | Gujarat APMC`
   }
-  return 'Gujarat Market Yard Prices - Live Agricultural Commodity Rates'
+  return 'Gujarat APMC Prices - Live Market Rates'
 })
 
 const pageDescription = computed(() => {

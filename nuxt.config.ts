@@ -12,6 +12,9 @@ export default defineNuxtConfig({
   },
   app: {
     head: {
+      htmlAttrs: {
+        lang: 'en'
+      },
       title: 'Khedut Bajar Bhav - ખેડૂત બજાર ભાવ',
       meta: [
         { charset: 'utf-8' },

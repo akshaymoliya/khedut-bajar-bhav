@@ -218,6 +218,26 @@
         </div>
       </div>
     </div>
+
+    <!-- Additional Content for SEO and Information -->
+    <div class="card bg-slate-50 border-0 p-6 sm:p-8 space-y-4">
+      <h2 class="text-xl font-bold text-slate-900">{{ t('crop.aboutTitle', { crop: displayTitle }) || `About ${displayTitle} Prices` }}</h2>
+      <div class="text-slate-600 space-y-3 leading-relaxed">
+        <p v-if="lang === 'gu'">
+          ગુજરાતના વિવિધ માર્કેટ યાર્ડ જેવા કે {{ selectedMarket || 'રાજકોટ, ગોંડલ અને અમદાવામાં' }} {{ displayTitle }} ના ભાવમાં દરરોજ વધઘટ જોવા મળે છે. 
+          અમે અહીં પાંચ દિવસનો સચોટ ઈતિહાસ પ્રદાન કરીએ છીએ જેથી ખેડૂતો સાચો નિર્ણય લઈ શકે. 
+          આજના સૌથી વધુ ભાવ ₹{{ maxPriceOverall.toLocaleString() }} છે.
+        </p>
+        <p v-else>
+          {{ displayTitle }} prices in {{ selectedMarket || 'Gujarat APMCs' }} fluctuate daily based on arrival and demand. 
+          Tracking the 5-day price history helps farmers and traders make informed decisions about when to sell. 
+          The highest recorded price today for {{ displayTitle }} is ₹{{ maxPriceOverall.toLocaleString() }} per 20kg.
+        </p>
+        <p class="text-sm italic">
+          {{ t('crop.disclaimer') || 'Note: Prices are for reference and may vary by quality.' }}
+        </p>
+      </div>
+    </div>
   </section>
 </template>
 
@@ -439,17 +459,17 @@ onMounted(() => {
 const pageTitle = computed(() => {
   const brand = t('brand.name')
   if (lang.value === 'gu') {
-    return `${commodityName} બજાર ભાવ - છેલ્લો ૫ દિવસનો ઈતિહાસ | ${brand}`
+    return `${commodityName} બજાર ભાવ - ૫ દિવસનો ઈતિહાસ | ${brand}`
   }
-  return `${commodityName} Price Detail - Last 5 Days Rate History | ${brand}`
+  return `${commodityName} Price History - 5 Day Rates | ${brand}`
 })
 
 const pageDesc = computed(() => {
   const priceText = maxPriceOverall.value > 0 ? `₹${maxPriceOverall.value.toLocaleString()}` : ''
   if (lang.value === 'gu') {
-    return `ગુજરાતના માર્કેટ યાર્ડના ${commodityName} ના તાજા બજાર ભાવ. આજનો સૌથી વધુ ભાવ: ${priceText}. ખેડૂતો માટે છેલ્લા ૫ દિવસના ભાવ અને વધઘટની માહિતી.`
+    return `ગુજરાતના માર્કેટ યાર્ડના ${commodityName} ના તાજા ભાવ. આજનો સૌથી વધુ: ${priceText}. છેલ્લા ૫ દિવસની વિગત અહીં જુઓ.`
   }
-  return `Latest ${commodityName} market rates in Gujarat APMC. Today's highest price: ${priceText}. View 5-day historical price trends and daily mandi bhav updates.`
+  return `Latest ${commodityName} rates in Gujarat. Today's high: ${priceText}. View 5-day historical trends at Khedut Bajar Bhav.`
 })
 
 const pageKeywords = computed(() => {
