@@ -305,15 +305,16 @@ const route = useRoute()
 // Dynamic SEO Meta Tags
 const pageTitle = computed(() => {
   const loc = currentLocationName.value !== 'Rajkot, Gujarat' ? currentLocationName.value : (lang.value === 'gu' ? 'રાજકોટ, ગુજરાત' : 'Rajkot, Gujarat')
-  return `${t('weather.title')} - ${loc} | ${t('brand.name')}`
+  const rajkotSuffix = loc.toLowerCase().includes('rajkot') ? ' | Rajkot Weather for Farmers' : ''
+  return `${t('weather.title')} - ${loc}${rajkotSuffix} | ${t('brand.name')}`
 })
 
 const pageDescription = computed(() => {
   const loc = currentLocationName.value !== 'Rajkot, Gujarat' ? currentLocationName.value : (lang.value === 'gu' ? 'રાજકોટ' : 'Rajkot')
   if (lang.value === 'gu') {
-    return `${loc} માટે ખેતીવાડી હવામાન: આજનું તાપમાન, વરસાદની શક્યતા, ૭-દિવસની આગાહી અને ખેડૂતો માટે ખાસ સલાહ.`
+    return `${loc} હવામાન અને ખેતીવાડી સમાચાર: આજનું તાપમાન, વરસાદની આગાહી અને ખેડૂતો માટે ખાસ સલાહ. રાજકોટ બજાર ભાવ અને હવામાનની માહિતી.`
   }
-  return `Agricultural weather for ${loc}: Today's temperature, rain chance, 7-day forecast, and special farmer advice for better crop planning.`
+  return `Agricultural weather for ${loc}: Today's temperature, rain forecast, and special farmer advice. Plan your farming activities with Rajkot weather and Bajar Bhav.`
 })
 
 // JSON-LD Structured Data
@@ -335,7 +336,16 @@ useHead({
   title: pageTitle,
   meta: [
     { name: 'description', content: pageDescription },
-    { name: 'keywords', content: computed(() => `${currentLocationName.value}, agricultural weather, khedut weather, farming forecast Gujarat, ${t('brand.name')}, monsoon report, crop safety advice`) },
+    { 
+      name: 'keywords', 
+      content: computed(() => {
+        const base = `${currentLocationName.value}, agricultural weather, khedut weather, farming forecast Gujarat, ${t('brand.name')}, monsoon report, crop safety advice`
+        if (currentLocationName.value.toLowerCase().includes('rajkot')) {
+          return `${base}, Rajkot Bajar Bhav, Rajkot Weather today, Rajkot market yard weather, રાજકોટ હવામાન`
+        }
+        return base
+      }) 
+    },
     { property: 'og:title', content: pageTitle },
     { property: 'og:description', content: pageDescription },
     { property: 'og:url', content: computed(() => `https://www.khedutbajarbhav.online${route.fullPath}`) },

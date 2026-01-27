@@ -458,24 +458,46 @@ onMounted(() => {
 // Dynamic SEO
 const pageTitle = computed(() => {
   const brand = t('brand.name')
+  const marketSuffix = selectedMarket ? ` in ${selectedMarket}` : ''
+  const rajkotKeywords = selectedMarket?.toLowerCase().includes('rajkot') ? ' | Rajkot Bajar Bhav' : ''
+  
   if (lang.value === 'gu') {
-    return `${commodityName} બજાર ભાવ - ૫ દિવસનો ઈતિહાસ | ${brand}`
+    const marketGu = selectedMarket ? ` ${selectedMarket} માર્કેટ યાર્ડ` : ''
+    return `${commodityName} બજાર ભાવ${marketGu}${rajkotKeywords} | ${brand}`
   }
-  return `${commodityName} Price History - 5 Day Rates | ${brand}`
+  return `${commodityName} Price History${marketSuffix}${rajkotKeywords} | ${brand}`
 })
 
 const pageDesc = computed(() => {
   const priceText = maxPriceOverall.value > 0 ? `₹${maxPriceOverall.value.toLocaleString()}` : ''
+  const marketName = selectedMarket || 'Gujarat'
+  
   if (lang.value === 'gu') {
-    return `ગુજરાતના માર્કેટ યાર્ડના ${commodityName} ના તાજા ભાવ. આજનો સૌથી વધુ: ${priceText}. છેલ્લા ૫ દિવસની વિગત અહીં જુઓ.`
+    let desc = `${marketName} માર્કેટ યાર્ડમાં ${commodityName} ના તાજા બજાર ભાવ. આજનો સૌથી વધુ ભાવ: ${priceText}.`
+    if (marketName.toLowerCase().includes('rajkot')) {
+      desc = `રાજકોટ માર્કેટ યાર્ડ ${commodityName} બજાર ભાવ (Rajkot Bajar Bhav). આજે ${commodityName} નો ભાવ: ${priceText}. છેલ્લા ૫ દિવસનો ઈતિહાસ જુઓ.`
+    }
+    return desc
   }
-  return `Latest ${commodityName} rates in Gujarat. Today's high: ${priceText}. View 5-day historical trends at Khedut Bajar Bhav.`
+  
+  let desc = `Latest ${commodityName} rates in ${marketName} market yard. Today's high: ${priceText}. View 5-day historical trends.`
+  if (marketName.toLowerCase().includes('rajkot')) {
+    desc = `Rajkot Market Yard ${commodityName} Bajar Bhav. Today's ${commodityName} price: ${priceText}. Get latest Rajkot yard bhav and history.`
+  }
+  return desc
 })
 
 const pageKeywords = computed(() => {
-  const base = `${commodityName} price, ${commodityName} market rate, gujarat apmc, mandi bhav, today crop price`
+  const base = `${commodityName} price, ${commodityName} market rate, gujarat apmc, mandi bhav, today crop price, bajar bhav`
   const gu = `${commodityName} બજાર ભાવ, માર્કેટ યાર્ડ ભાવ, આજના બજાર ભાવ, ખેડૂત સમાચાર`
-  return lang.value === 'gu' ? `${gu}, ${base}` : `${base}, ${gu}`
+  
+  let keywords = lang.value === 'gu' ? `${gu}, ${base}` : `${base}, ${gu}`
+  
+  if (selectedMarket?.toLowerCase().includes('rajkot')) {
+    keywords += ', Rajkot Market Yard, Rajkot Bajar Bhav, Rajkot Yard Bhav, Rajkot Bhajar Bhav, રાજકોટ બજાર ભાવ'
+  }
+  
+  return keywords
 })
 
 // JSON-LD Structured Data

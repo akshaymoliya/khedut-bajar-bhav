@@ -222,32 +222,54 @@ if (route.query.end) q.value.end = route.query.end.toString()
 const pageTitle = computed(() => {
   const parts = []
   if (q.value.commodity) parts.push(q.value.commodity)
-  if (q.value.market) parts.push(`${q.value.market} Market`)
+  
+  if (q.value.market) {
+    if (q.value.market.toLowerCase().includes('rajkot')) {
+      parts.push('Rajkot Market Yard (Bajar Bhav)')
+    } else {
+      parts.push(`${q.value.market} Market Yard`)
+    }
+  }
   
   if (parts.length > 0) {
-    return `${parts.join(' in ')} | Gujarat APMC`
+    return `${parts.join(' - ')} | Gujarat APMC Bajar Bhav`
   }
-  return 'Gujarat APMC Prices - Live Market Rates'
+  return 'Gujarat APMC Prices - Live Market Yard Bajar Bhav'
 })
 
 const pageDescription = computed(() => {
-  if (q.value.commodity && q.value.market) {
-    return `Check today's live ${q.value.commodity} prices in ${q.value.market} APMC. Specific details including minimum, maximum, and modal prices.`
+  const marketName = q.value.market || 'Gujarat'
+  const commodityName = q.value.commodity || 'all commodities'
+  
+  let desc = `Check today's live ${commodityName} prices in ${marketName} APMC.`
+  
+  if (marketName.toLowerCase().includes('rajkot')) {
+    desc = `Get latest Rajkot Market Yard prices (Rajkot Bajar Bhav). Track today's ${commodityName} rates, Rajkot yard bhav, and daily market trends.`
+  } else if (q.value.commodity && q.value.market) {
+    desc = `Check today's live ${q.value.commodity} prices in ${q.value.market} APMC. Get minimum, maximum, and modal prices daily.`
+  } else if (q.value.market) {
+    desc = `Live market rates at ${q.value.market} APMC. Track daily Bajar Bhav for all commodities arrived today.`
+  } else if (q.value.commodity) {
+    desc = `Current market prices for ${q.value.commodity} across all Gujarat APMC market yards. Compare rates and daily yard bhav.`
   }
-  if (q.value.market) {
-    return `Live market rates at ${q.value.market} APMC. Track daily prices for all commodities arrived today.`
-  }
-  if (q.value.commodity) {
-    return `Current market prices for ${q.value.commodity} across all Gujarat APMC market yards. Compare rates and trends.`
-  }
-  return 'Get real-time agricultural commodity prices from Gujarat market yards. Track daily rates for vegetables, fruits, grains, and other produce.'
+  
+  return desc
 })
 
 useHead({
   title: pageTitle,
   meta: [
     { name: 'description', content: pageDescription },
-    { name: 'keywords', content: computed(() => `${q.value.market || 'Gujarat'} APMC, ${q.value.commodity || 'commodity'} price, market yard rates, mandi bhav, agriculture prices`) },
+    { 
+      name: 'keywords', 
+      content: computed(() => {
+        const base = `${q.value.market || 'Gujarat'} APMC, ${q.value.commodity || 'commodity'} price, market yard rates, mandi bhav, bajar bhav`
+        if (q.value.market?.toLowerCase().includes('rajkot')) {
+          return `${base}, Rajkot Market Yard, Rajkot Bajar Bhav, Rajkot Yard Bhav, Rajkot Bhajar Bhav`
+        }
+        return base
+      }) 
+    },
     { property: 'og:title', content: pageTitle },
     { property: 'og:description', content: pageDescription },
     { property: 'og:url', content: computed(() => `https://www.khedutbajarbhav.online${route.fullPath}`) },

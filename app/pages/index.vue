@@ -216,19 +216,19 @@ import { onMounted, computed } from 'vue'
 
 // SEO Meta Tags
 useHead({
-  title: 'Khedut Bajar Bhav - ખેડૂત બજાર ભાવ | Live Gujarat APMC Market Yard Prices',
+  title: 'Rajkot Market Yard & Gujarat APMC Live Bajar Bhav - ખેડૂત બજાર ભાવ',
   meta: [
     {
       name: 'description',
-      content: 'ખેડૂત બજાર ભાવ - Get real-time agricultural commodity prices from Gujarat market yards. Track daily rates for Cotton, Groundnut, Wheat, Onion and other produce across all APMC markets in Gujarat.'
+      content: 'ખેડૂત બજાર ભાવ - Get latest Rajkot Market Yard prices, Rajkot Bajar Bhav, and Gujarat APMC rates. Track daily yard bhav for Cotton, Groundnut, and all major crops across Gujarat.'
     },
     {
       name: 'keywords',
-      content: 'ખેડૂત બજાર ભાવ, Khedut Bajar Bhav, Gujarat APMC rates, market yard prices, daily mandi bhav, Cotton price Gujarat, Groundnut price today, Wheat rates, Gondal APMC, Rajkot Market Yard, Ahmedabad APMC'
+      content: 'ખેડૂત બજાર ભાવ, Rajkot Market Yard, Rajkot Bajar Bhav, Rajkot Yard Bhav, Rajkot Bhajar Bhav, Khedut Bajar Bhav, Gujarat APMC rates, market yard prices, daily mandi bhav, Cotton price Gujarat, Gondal APMC'
     },
     {
       name: 'author',
-      content: 'Gujarat Market Yard Price Portal'
+      content: 'Khedut Bajar Bhav'
     },
     {
       name: 'robots',
@@ -241,11 +241,11 @@ useHead({
     },
     {
       property: 'og:title',
-      content: 'Khedut Bajar Bhav - ખેડૂત બજાર ભાવ | Live Gujarat APMC Prices'
+      content: 'Rajkot Market Yard & Gujarat APMC Live Bajar Bhav'
     },
     {
       property: 'og:description',
-      content: 'Track real-time agricultural commodity prices (ખેડૂત બજાર ભાવ) from Gujarat market yards. Daily rates for Cotton, Groundnut, and more.'
+      content: 'Get real-time Rajkot Market Yard prices and Gujarat APMC Bajar Bhav. Track daily rates for Cotton, Groundnut, and more.'
     },
     {
       property: 'og:locale',

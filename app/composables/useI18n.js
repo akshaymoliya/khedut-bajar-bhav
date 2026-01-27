@@ -9,13 +9,13 @@ const messages = {
   en: {
     brand: {
       name: 'Khedut Bajar Bhav',
-      tagline: 'Daily agricultural market prices for farmers',
+      tagline: 'Rajkot Market Yard & Gujarat APMC Live Bajar Bhav',
     },
     nav: { home: 'Home', market: 'Market', weather: 'Weather', about: 'About', contact: 'Contact' },
     index: {
       hero: {
-        title: 'Track Gujarat Agricultural Market Prices',
-        subtitle: 'Fast, bilingual, and accessible market insights for everyone',
+        title: 'Rajkot Market Yard & Gujarat APMC Live Prices',
+        subtitle: 'Get latest Rajkot Bajar Bhav, Gondal Yard rates, and Gujarat market yard prices daily.',
       },
       search: { placeholder: 'Search commodity (e.g., Cotton, Wheat)' },
       highlights: 'Highlights',
@@ -23,8 +23,8 @@ const messages = {
       latestUpdates: 'Latest Updates',
       aboutSection: {
         badge: 'About Portal',
-        title: 'Gujarat Market Yard Price Portal',
-        description: "Reliable platform for tracking daily market prices across all major Gujarat APMCs. Get accurate rates, market trends, and insights directly on your mobile for farmers and traders.",
+        title: 'Gujarat Market Yard & Rajkot Bajar Bhav Portal',
+        description: "Reliable platform for tracking Rajkot market yard prices and daily market rates across all major Gujarat APMCs. Get accurate Rajkot yard bhav, market trends, and insights directly on your mobile.",
         features: {
           accurate: { title: 'Accurate Prices', desc: 'Daily fresh and correct rates' },
           history: { title: 'Historical Data', desc: 'Track trends and price fluctuations' }
@@ -134,13 +134,13 @@ const messages = {
   gu: {
     brand: {
       name: 'ખેડૂત બજાર ભાવ',
-      tagline: 'ખેડૂતો માટે દૈનિક કૃષિ બજાર ભાવ',
+      tagline: 'રાજકોટ માર્કેટ યાર્ડ અને ગુજરાત APMC લાઈવ બજાર ભાવ',
     },
     nav: { home: 'હોમ', market: 'બજાર', weather: 'હવામાન', about: 'વિશે', contact: 'સંપર્ક' },
     index: {
       hero: {
-        title: 'ગુજરાતના કૃષિ બજારના ભાવ ટ્રેક કરો',
-        subtitle: 'ઝડપી, દ્વિભાષી અને સરળ ઉપલબ્ધ બજાર માહિતી',
+        title: 'રાજકોટ માર્કેટ યાર્ડ અને ગુજરાત બજાર ભાવ',
+        subtitle: 'રાજકોટ બજાર ભાવ, ગોંડલ યાર્ડ ભાવ અને ગુજરાતના તમામ માર્કેટ યાર્ડના તાજા ભાવ મેળવો.',
       },
       search: { placeholder: 'માલ શોધો (જેમ કે કપાસ, ઘઉં)' },
       highlights: 'હાઇલાઇટ્સ',
@@ -148,8 +148,8 @@ const messages = {
       latestUpdates: 'નવીનતમ અપડેટ્સ',
       aboutSection: {
         badge: 'પોર્ટલ વિશે',
-        title: 'ગુજરાત માર્કેટ યાર્ડ ભાવ પોર્ટલ',
-        description: 'ગુજરાતના તમામ મુખ્ય માર્કેટ યાર્ડ (APMC) ના બજારભાવ જાણવા માટેનું વિશ્વસનીય પ્લેટફોર્મ. ખેડૂતો અને વેપારીઓ માટે રોજિંદા ભાવ, બજારના ટ્રેન્ડ અને ચોક્કસ માહિતી સીધી તમારા મોબાઈલ પર.',
+        title: 'ગુજરાત માર્કેટ યાર્ડ અને રાજકોટ બજાર ભાવ પોર્ટલ',
+        description: 'રાજકોટ માર્કેટ યાર્ડના ભાવ અને ગુજરાતના તમામ મુખ્ય માર્કેટ યાર્ડ (APMC) ના બજારભાવ જાણવા માટેનું વિશ્વસનીય પ્લેટફોર્મ. રાજકોટ યાર્ડ ભાવ, બજારના ટ્રેન્ડ અને ચોક્કસ માહિતી સીધી તમારા મોબાઈલ પર.',
         features: {
           accurate: { title: 'સચોટ બજારભાવ', desc: 'રોજેરોજના તાજા અને સાચા ભાવ' },
           history: { title: 'ઐતિહાસિક ડેટા', desc: 'ટ્રેન્ડ અને ભાવ વધઘટ જાણો' }
