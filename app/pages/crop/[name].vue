@@ -63,10 +63,9 @@
           </div>
         </div>
 
-        <!-- Selected Market Info -->
         <div class="card bg-white border-0 ring-1 ring-slate-200 shadow-sm p-5 sm:p-6 flex flex-col justify-center sm:col-span-1">
           <p class="text-xs font-bold uppercase tracking-widest text-slate-500">{{ t('crop.marketYard') }}</p>
-          <p class="text-2xl font-black mt-2 leading-tight text-slate-900">{{ selectedMarket }}</p>
+          <p class="text-2xl font-black mt-2 leading-tight text-slate-900">{{ tMarket(selectedMarket) }}</p>
           <div class="mt-4 flex items-center gap-2 bg-primary/10 w-fit px-3 py-1 rounded-full text-[10px] font-bold text-primary">
             <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
             LIVE UPDATES
@@ -93,7 +92,7 @@
           <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8">
             <div>
               <h2 class="text-xl font-black text-slate-900">{{ t('crop.priceTrend') }}</h2>
-              <p class="text-sm text-slate-500 font-medium">{{ selectedMarket }} - {{ displayTitle }}</p>
+              <p class="text-sm text-slate-500 font-medium">{{ tMarket(selectedMarket) }} - {{ displayTitle }}</p>
             </div>
             <div class="flex gap-3">
               <div class="flex items-center gap-1.5 text-xs font-bold text-slate-400">
@@ -108,14 +107,15 @@
             </div>
           </div>
 
-          <div class="h-56 sm:h-72 w-full mt-4 flex items-end">
-            <TrendSparkline 
-              v-if="trendPoints.length > 0" 
-              :data="trendPoints" 
-              class="w-full h-full text-primary drop-shadow-[0_8px_24px_rgba(var(--color-primary),0.2)]"
-              stroke="currentColor"
-            />
-            <div v-else class="h-full w-full flex items-center justify-center text-slate-400 bg-slate-50 border border-dashed border-slate-200 rounded-2xl">
+          <div class="h-56 sm:h-72 w-full mt-4 relative">
+            <ClientOnly>
+               <PriceHistoryChart 
+                 v-if="trendPoints.length > 0" 
+                 :labels="chartLabels" 
+                 :datasets="chartDatasets"
+               />
+             </ClientOnly>
+            <div v-if="trendPoints.length === 0" class="h-full w-full flex items-center justify-center text-slate-400 bg-slate-50 border border-dashed border-slate-200 rounded-2xl">
               {{ t('market.noResults') }}
             </div>
           </div>
@@ -126,7 +126,7 @@
       <div class="space-y-4 px-1">
         <div class="flex items-center justify-between">
           <h2 class="text-xl font-black text-slate-900">{{ t('crop.historyTitle') }}</h2>
-          <span class="text-[10px] font-bold text-primary bg-primary/10 px-3 py-1 rounded-full uppercase tracking-wider">{{ selectedMarket }}</span>
+          <span class="text-[10px] font-bold text-primary bg-primary/10 px-3 py-1 rounded-full uppercase tracking-wider">{{ tMarket(selectedMarket) }}</span>
         </div>
         
         <!-- Mobile: Vertical List -->
@@ -205,7 +205,7 @@
             :to="{ path: `/crop/${rawData[0]?.crops?.name || commodityName}`, query: { market: m.market } }"
             class="card bg-white p-4 border-0 ring-1 ring-slate-200 hover:ring-primary/50 hover:shadow-md transition-all group"
           >
-            <p class="text-[10px] font-bold text-slate-400 uppercase truncate mb-2">{{ m.market }}</p>
+            <p class="text-[10px] font-bold text-slate-400 uppercase truncate mb-2">{{ tMarket(m.market) }}</p>
             <div class="flex items-baseline gap-1">
               <span class="text-lg font-black text-slate-900">₹{{ m.max }}</span>
               <span class="text-[10px] font-bold text-green-600">Max</span>
@@ -221,20 +221,17 @@
 
     <!-- Additional Content for SEO and Information -->
     <div class="card bg-slate-50 border-0 p-6 sm:p-8 space-y-4">
-      <h2 class="text-xl font-bold text-slate-900">{{ t('crop.aboutTitle', { crop: displayTitle }) || `About ${displayTitle} Prices` }}</h2>
+      <h2 class="text-xl font-bold text-slate-900">{{ t('crop.aboutTitle', { crop: displayTitle }) }}</h2>
       <div class="text-slate-600 space-y-3 leading-relaxed">
-        <p v-if="lang === 'gu'">
-          ગુજરાતના વિવિધ માર્કેટ યાર્ડ જેવા કે {{ selectedMarket || 'રાજકોટ, ગોંડલ અને અમદાવામાં' }} {{ displayTitle }} ના ભાવમાં દરરોજ વધઘટ જોવા મળે છે. 
-          અમે અહીં પાંચ દિવસનો સચોટ ઈતિહાસ પ્રદાન કરીએ છીએ જેથી ખેડૂતો સાચો નિર્ણય લઈ શકે. 
-          આજના સૌથી વધુ ભાવ ₹{{ maxPriceOverall.toLocaleString() }} છે.
-        </p>
-        <p v-else>
-          {{ displayTitle }} prices in {{ selectedMarket || 'Gujarat APMCs' }} fluctuate daily based on arrival and demand. 
-          Tracking the 5-day price history helps farmers and traders make informed decisions about when to sell. 
-          The highest recorded price today for {{ displayTitle }} is ₹{{ maxPriceOverall.toLocaleString() }} per 20kg.
-        </p>
+        <p>
+           {{ t('crop.aboutDesc', { 
+             crop: displayTitle, 
+             market: selectedMarket ? tMarket(selectedMarket) : (lang.value === 'gu' ? 'રાજકોટ, ગોંડલ અને અમદાવાદ' : 'Rajkot, Gondal and Ahmedabad'),
+             price: `₹${maxPriceOverall.toLocaleString()}`
+           }) }}
+         </p>
         <p class="text-sm italic">
-          {{ t('crop.disclaimer') || 'Note: Prices are for reference and may vary by quality.' }}
+          {{ t('crop.disclaimer') }}
         </p>
       </div>
     </div>
@@ -244,7 +241,7 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 
-const { t, lang } = useI18n()
+const { t, tMarket, lang } = useI18n()
 const route = useRoute()
 const client = useSupabaseClient()
 
@@ -265,12 +262,13 @@ const shareOnWhatsApp = () => {
     ? rawData.value[0].crops.local_name 
     : (rawData.value[0]?.crops?.name || commodityName)
     
-  const marketDisplay = selectedMarket || 'Gujarat'
-
-  const text = t('crop.shareText')
-    .replace('{crop}', `${cropDisplay}`)
-    .replace('{market}', `${marketDisplay}`)
-    .replace('{price}', `₹${maxPriceOverall.value.toLocaleString()}`)
+  const marketDisplay = selectedMarket ? tMarket(selectedMarket) : (lang.value === 'gu' ? 'ગુજરાત' : 'Gujarat')
+    
+  const text = t('crop.shareText', {
+    crop: cropDisplay,
+    market: marketDisplay,
+    price: `₹${maxPriceOverall.value.toLocaleString()}`
+  })
   
   // Construct a clean URL for the shared message
   const url = `https://www.khedutbajarbhav.online/crop/${commodityName}?market=${encodeURIComponent(selectedMarket || '')}`
@@ -399,6 +397,19 @@ const trendBgColor = computed(() => {
   return 'bg-slate-50 text-slate-400 ring-slate-100'
 })
 
+const chartLabels = computed(() => trendPoints.value.map(p => p.date))
+
+const chartDatasets = computed(() => [
+  {
+    label: t('market.avg'),
+    data: trendPoints.value.map(p => p.value),
+    borderColor: '#22c55e',
+    backgroundColor: 'rgba(34, 197, 94, 0.1)',
+    fill: true,
+    tension: 0.4
+  }
+])
+
 const otherMarkets = computed(() => {
   if (rawData.value.length === 0) return []
   
@@ -458,11 +469,12 @@ onMounted(() => {
 // Dynamic SEO
 const pageTitle = computed(() => {
   const brand = t('brand.name')
-  const marketSuffix = selectedMarket ? ` in ${selectedMarket}` : ''
+  const marketName = selectedMarket ? tMarket(selectedMarket) : ''
+  const marketSuffix = marketName ? ` in ${marketName}` : ''
   const rajkotKeywords = selectedMarket?.toLowerCase().includes('rajkot') ? ' | Rajkot Bajar Bhav' : ''
   
   if (lang.value === 'gu') {
-    const marketGu = selectedMarket ? ` ${selectedMarket} માર્કેટ યાર્ડ` : ''
+    const marketGu = marketName ? ` ${marketName} માર્કેટ યાર્ડ` : ''
     return `${commodityName} બજાર ભાવ${marketGu}${rajkotKeywords} | ${brand}`
   }
   return `${commodityName} Price History${marketSuffix}${rajkotKeywords} | ${brand}`
@@ -470,11 +482,11 @@ const pageTitle = computed(() => {
 
 const pageDesc = computed(() => {
   const priceText = maxPriceOverall.value > 0 ? `₹${maxPriceOverall.value.toLocaleString()}` : ''
-  const marketName = selectedMarket || 'Gujarat'
+  const marketName = selectedMarket ? tMarket(selectedMarket) : (lang.value === 'gu' ? 'ગુજરાત' : 'Gujarat')
   
   if (lang.value === 'gu') {
     let desc = `${marketName} માર્કેટ યાર્ડમાં ${commodityName} ના તાજા બજાર ભાવ. આજનો સૌથી વધુ ભાવ: ${priceText}.`
-    if (marketName.toLowerCase().includes('rajkot')) {
+    if (selectedMarket?.toLowerCase().includes('rajkot')) {
       desc = `રાજકોટ માર્કેટ યાર્ડ ${commodityName} બજાર ભાવ (Rajkot Bajar Bhav). આજે ${commodityName} નો ભાવ: ${priceText}. છેલ્લા ૫ દિવસનો ઈતિહાસ જુઓ.`
     }
     return desc

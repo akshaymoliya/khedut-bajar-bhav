@@ -15,24 +15,20 @@
           <div class="space-y-4">
             <h4 class="font-bold text-slate-900 uppercase text-xs tracking-widest">{{ t('nav.market') }}</h4>
             <ul class="space-y-2 text-slate-600">
-              <li><NuxtLink to="/market" class="hover:text-primary transition-colors">Latest Prices</NuxtLink></li>
-              <li><NuxtLink to="/weather" class="hover:text-primary transition-colors">Weather Forecast</NuxtLink></li>
+              <li><NuxtLink to="/market" class="hover:text-primary transition-colors">{{ t('footer.latestPrices') }}</NuxtLink></li>
+              <li><NuxtLink to="/weather" class="hover:text-primary transition-colors">{{ t('footer.weather') }}</NuxtLink></li>
             </ul>
           </div>
           <div class="space-y-4">
-            <h4 class="font-bold text-slate-900 uppercase text-xs tracking-widest">Support</h4>
+            <h4 class="font-bold text-slate-900 uppercase text-xs tracking-widest">{{ t('footer.support') }}</h4>
             <ul class="space-y-2 text-slate-600">
-              <li><NuxtLink to="/about" class="hover:text-primary transition-colors">About Us</NuxtLink></li>
-              <li><NuxtLink to="/contact" class="hover:text-primary transition-colors">Contact</NuxtLink></li>
+              <li><NuxtLink to="/about" class="hover:text-primary transition-colors">{{ t('footer.about') }}</NuxtLink></li>
+              <li><NuxtLink to="/contact" class="hover:text-primary transition-colors">{{ t('footer.contact') }}</NuxtLink></li>
             </ul>
           </div>
         </div>
         <div class="mt-10 pt-6 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400 font-medium">
-          <p>© {{ new Date().getFullYear() }} {{ t('brand.name') }}. All rights reserved.</p>
-          <div class="flex gap-6">
-            <a href="#" class="hover:text-slate-600 transition-colors">Privacy Policy</a>
-            <a href="#" class="hover:text-slate-600 transition-colors">Terms of Service</a>
-          </div>
+          <p>© {{ new Date().getFullYear() }} {{ t('brand.name') }}. {{ t('footer.rights') }}</p>
         </div>
       </div>
     </footer>

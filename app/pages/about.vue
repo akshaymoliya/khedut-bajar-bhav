@@ -66,12 +66,12 @@
 
     <!-- Call to Action -->
     <div class="text-center bg-slate-900 rounded-3xl p-12 text-white">
-      <h2 class="text-3xl font-bold mb-6">Connecting Farmers to Markets</h2>
+      <h2 class="text-3xl font-bold mb-6">{{ t('about.ctaTitle') }}</h2>
       <p class="text-slate-400 mb-8 max-w-2xl mx-auto">
-        Join thousands of farmers across Gujarat who use Khedut Bajar Bhav daily to stay ahead.
+        {{ t('about.ctaDesc') }}
       </p>
       <NuxtLink to="/market" class="btn btn-primary px-8 py-3 rounded-xl text-lg inline-flex items-center gap-2">
-        View Live Prices 🚀
+        {{ t('about.ctaButton') }}
       </NuxtLink>
     </div>
   </div>

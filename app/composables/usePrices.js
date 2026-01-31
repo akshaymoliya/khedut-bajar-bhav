@@ -89,7 +89,11 @@ export function usePrices() {
 
       // Market filter (search by name via join)
       if (query.value.market) {
-        supabaseQuery = supabaseQuery.ilike('market_yards.name', `%${query.value.market}%`)
+        // Use useI18n only if available (it is auto-imported in Nuxt)
+        // We resolve localized name (e.g. 'રાજકોટ') to English ID ('Rajkot') for the DB query
+        const { resolveMarketId } = useI18n() 
+        const effectiveMarket = resolveMarketId(query.value.market)
+        supabaseQuery = supabaseQuery.ilike('market_yards.name', `%${effectiveMarket}%`)
       }
 
       // Commodity filter

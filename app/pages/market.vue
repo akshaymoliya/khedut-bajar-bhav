@@ -20,7 +20,7 @@
               <input 
                 id="market" 
                 class="input !pl-10 py-3 text-base w-full" 
-                v-model="q.market" 
+                v-model="marketInput" 
                 @input="handleMarketInput"
                 @focus="showDropdown = true"
                 @blur="setTimeout(() => showDropdown = false, 200)"
@@ -39,7 +39,7 @@
                   class="px-4 py-2 hover:bg-slate-50 cursor-pointer text-slate-700 font-medium"
                   @mousedown.prevent="selectMarket(m)"
                 >
-                  {{ m.name }}
+                  {{ tMarket(m.name) }}
                 </li>
               </ul>
             </div>
@@ -156,7 +156,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
-                  <span class="text-sm font-medium">{{ r.market }}</span>
+                  <span class="text-sm font-medium">{{ tMarket(r.market) }}</span>
                 </div>
               </div>
               <div class="text-right">
@@ -184,11 +184,11 @@
       <!-- Additional Content for SEO -->
       <div v-if="filtered.length > 0" class="mt-12 bg-slate-50 rounded-2xl p-6 sm:p-8 border-0">
         <h2 class="text-xl font-bold text-slate-900 mb-4">
-          {{ q.commodity ? `${q.commodity} ` : '' }}{{ q.market ? `in ${q.market} ` : '' }}Market Analysis
+          {{ q.commodity ? `${q.commodity} ` : '' }}{{ q.market ? `in ${tMarket(q.market)} ` : '' }}Market Analysis
         </h2>
         <div class="text-slate-600 text-sm sm:text-base leading-relaxed space-y-3">
           <p>
-            The prices shown above for {{ q.commodity || 'various commodities' }} in {{ q.market || 'Gujarat APMCs' }} are updated daily. 
+            The prices shown above for {{ q.commodity || 'various commodities' }} in {{ tMarket(q.market) || 'Gujarat APMCs' }} are updated daily. 
             Understanding these trends helps farmers choose the best time and market to sell their produce. 
             Our platform provides transparent access to minimum, maximum, and average rates.
           </p>
@@ -205,12 +205,15 @@
 <script setup>
 import { onMounted, onUnmounted, ref, computed, watch } from 'vue'
 
-const { translate, lang } = useI18n()
+const { translate, lang, tMarket, resolveMarketId } = useI18n()
 const t = translate
 const { query: q, fetchPrices, filtered, loading } = usePrices()
 const client = useSupabaseClient()
 const route = useRoute()
 const router = useRouter()
+
+// Market Input handling
+const marketInput = ref(route.query.market ? tMarket(route.query.market.toString()) : '')
 
 // Sync Route Query to State (Top-level for SSR)
 if (route.query.market) q.value.market = route.query.market.toString()
@@ -224,10 +227,11 @@ const pageTitle = computed(() => {
   if (q.value.commodity) parts.push(q.value.commodity)
   
   if (q.value.market) {
+    const market = tMarket(q.value.market)
     if (q.value.market.toLowerCase().includes('rajkot')) {
-      parts.push('Rajkot Market Yard (Bajar Bhav)')
+      parts.push(`${market} Market Yard (Bajar Bhav)`)
     } else {
-      parts.push(`${q.value.market} Market Yard`)
+      parts.push(`${market} Market Yard`)
     }
   }
   
@@ -246,9 +250,9 @@ const pageDescription = computed(() => {
   if (marketName.toLowerCase().includes('rajkot')) {
     desc = `Get latest Rajkot Market Yard prices (Rajkot Bajar Bhav). Track today's ${commodityName} rates, Rajkot yard bhav, and daily market trends.`
   } else if (q.value.commodity && q.value.market) {
-    desc = `Check today's live ${q.value.commodity} prices in ${q.value.market} APMC. Get minimum, maximum, and modal prices daily.`
+    desc = `Check today's live ${q.value.commodity} prices in ${tMarket(q.value.market)} APMC. Get minimum, maximum, and modal prices daily.`
   } else if (q.value.market) {
-    desc = `Live market rates at ${q.value.market} APMC. Track daily Bajar Bhav for all commodities arrived today.`
+    desc = `Live market rates at ${tMarket(q.value.market)} APMC. Track daily Bajar Bhav for all commodities arrived today.`
   } else if (q.value.commodity) {
     desc = `Current market prices for ${q.value.commodity} across all Gujarat APMC market yards. Compare rates and daily yard bhav.`
   }
@@ -368,8 +372,14 @@ const handleCropInput = (e) => {
 
 const handleMarketInput = () => {
     showDropdown.value = true // Re-open if closed
+    
+    // Update internal market query based on input
+    // If it's a known localized name, resolve to English. Otherwise use as is for ilike search.
+    q.value.market = resolveMarketId(marketInput.value)
+
     // If user clears the market input, fetch all
-    if (!q.value.market || q.value.market.trim() === '') {
+    if (!marketInput.value || marketInput.value.trim() === '') {
+        q.value.market = ''
         applyFilters()
     }
 }
@@ -403,14 +413,17 @@ const fetchMarketYards = async () => {
 }
 
 const filteredMarkets = computed(() => {
-    if (!q.value.market) return marketYards.value
+    if (!marketInput.value) return marketYards.value
+    const s = marketInput.value.toLowerCase()
     return marketYards.value.filter(m => 
-        m.name.toLowerCase().includes(q.value.market.toLowerCase())
+        m.name.toLowerCase().includes(s) || 
+        tMarket(m.name).toLowerCase().includes(s)
     )
 })
 
 const selectMarket = (market) => {
     q.value.market = market.name
+    marketInput.value = tMarket(market.name)
     showDropdown.value = false
     applyFilters()
 }
@@ -448,6 +461,7 @@ onUnmounted(() => {
 
 const reset = () => {
   q.value.market = ''
+  marketInput.value = ''
   q.value.commodity = ''
   const today = new Date().toLocaleDateString('en-CA')
   q.value.start = today
@@ -476,13 +490,23 @@ watch(() => route.query, (newQuery) => {
   const m = newQuery.market ? newQuery.market.toString() : ''
   const c = newQuery.commodity ? newQuery.commodity.toString() : ''
   const s = newQuery.start ? newQuery.start.toString() : ''
-  if (m !== q.value.market) q.value.market = m
+  if (m !== q.value.market) {
+    q.value.market = m
+    marketInput.value = m ? tMarket(m) : ''
+  }
   if (c !== q.value.commodity) q.value.commodity = c
   if (s && s !== q.value.start) {
     q.value.start = s
     q.value.end = s
   }
   fetchPrices()
+})
+
+// Watch language changes to update localized display
+watch(lang, (newLang) => {
+  if (q.value.market) {
+    marketInput.value = tMarket(q.value.market)
+  }
 })
 
 </script>

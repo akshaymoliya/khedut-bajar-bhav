@@ -74,6 +74,9 @@ const messages = {
       backToMarket: 'Back to Market',
       shareWhatsApp: 'Share on WhatsApp',
       shareText: '📊 Check out today\'s latest {crop} prices at {market}! \n\n💰 Today\'s highest price is {price}. \n\n👇 For more details, click here: ',
+      aboutTitle: 'About {crop} Prices',
+      aboutDesc: 'Prices for {crop} in {market} fluctuate daily based on arrival and demand. Tracking the 5-day price history helps farmers and traders make informed decisions about when to sell. The highest recorded price today for {crop} is {price} per 20kg.',
+      disclaimer: 'Note: Prices are for reference and may vary by quality.'
     },
     weather: { 
       title: 'Agricultural Weather', 
@@ -117,7 +120,10 @@ const messages = {
       feature3Title: 'Market Insights',
       feature3Desc: 'Track price trends and historical data to decide the best time to sell your crops for maximum profit.',
       feature4Title: 'Weather Guidance',
-      feature4Desc: 'Receive localized weather forecasts and agricultural advice to plan your field activities better.'
+      feature4Desc: 'Receive localized weather forecasts and agricultural advice to plan your field activities better.',
+      ctaTitle: 'Connecting Farmers to Markets',
+      ctaDesc: 'Join thousands of farmers across Gujarat who use Khedut Bajar Bhav daily to stay ahead.',
+      ctaButton: 'View Live Prices 🚀'
     },
     contact: { 
       title: 'Contact Us',
@@ -129,6 +135,39 @@ const messages = {
       success: 'Thank you! Your message has been sent.',
       helpTitle: 'Need Help?',
       helpDesc: 'Are you a farmer looking for specific market data? Or a trader wanting to partner? Let us know!'
+    },
+    footer: {
+      privacy: 'Privacy Policy',
+      terms: 'Terms of Service',
+      rights: 'All rights reserved.',
+      latestPrices: 'Latest Prices',
+      weather: 'Weather Forecast',
+      support: 'Support',
+      about: 'About Us',
+      contact: 'Contact',
+      markets: {
+        'Rajkot': 'Rajkot',
+        'Gondal': 'Gondal',
+        'Ahmedabad': 'Ahmedabad',
+        'Amreli': 'Amreli',
+        'Surat': 'Surat',
+        'Vadodara': 'Vadodara',
+        'Junagadh': 'Junagadh',
+        'Jamnagar': 'Jamnagar',
+        'Bhavnagar': 'Bhavnagar',
+        'Porbandar': 'Porbandar',
+        'Gandhinagar': 'Gandhinagar',
+        'Patan': 'Patan',
+        'Mehsana': 'Mehsana',
+        'Botad': 'Botad',
+        'Morbi': 'Morbi',
+        'Jasdan': 'Jasdan',
+        'Jetpur': 'Jetpur',
+        'Dhoraji': 'Dhoraji',
+        'Upleta': 'Upleta',
+        'Halvad': 'Halvad',
+        'Wankaner': 'Wankaner'
+      },
     },
   },
   gu: {
@@ -199,6 +238,9 @@ const messages = {
       backToMarket: 'પાછા બજાર પર',
       shareWhatsApp: 'વોટ્સએપ પર શેર કરો',
       shareText: '📊 {market} માં {crop} ના આજના તાજા ભાવ જુઓ!\n\n💰 આજનો સૌથી વધુ ભાવ {price} છે.\n\n👇 વધુ માહિતી માટે અહીં ક્લિક કરો: ',
+      aboutTitle: '{crop} ના ભાવ વિશે',
+      aboutDesc: 'ગુજરાતના વિવિધ માર્કેટ યાર્ડ જેવા કે {market} માં {crop} ના ભાવમાં દરરોજ વધઘટ જોવા મળે છે. અમે અહીં પાંચ દિવસનો સચોટ ઈતિહાસ પ્રદાન કરીએ છીએ જેથી ખેડૂતો સાચો નિર્ણય લઈ શકે. આજના સૌથી વધુ ભાવ {price} છે.',
+      disclaimer: 'નોંધ: ભાવ સંદર્ભ માટે છે અને ગુણવત્તા મુજબ બદલાઈ શકે છે.'
     },
     weather: { 
       title: 'ખેતીવાડી હવામાન', 
@@ -242,7 +284,10 @@ const messages = {
       feature3Title: 'બજાર માર્ગદર્શન',
       feature3Desc: 'મહત્તમ નફો મેળવવા માટે તમારા પાકને વેચવાનો શ્રેષ્ઠ સમય નક્કી કરવા માટે ભાવના વલણો તપાસો.',
       feature4Title: 'હવામાન માર્ગદર્શન',
-      feature4Desc: 'ખેતીના કામનું બહેતર આયોજન કરવા માટે સ્થાનિક હવામાન આગાહી અને કૃષિ સલાહ મેળવો.'
+      feature4Desc: 'ખેતીના કામનું બહેતર આયોજન કરવા માટે સ્થાનિક હવામાન આગાહી અને કૃષિ સલાહ મેળવો.',
+      ctaTitle: 'ખેડૂતોને બજારો સાથે જોડવું',
+      ctaDesc: 'ગુજરાતના હજારો ખેડૂતો સાથે જોડાઓ જેઓ આગળ રહેવા માટે રોજેરોજ ખેડૂત બજાર ભાવનો ઉપયોગ કરે છે.',
+      ctaButton: 'જીવંત ભાવ જુઓ 🚀'
     },
     contact: { 
       title: 'અમારો સંપર્ક કરો',
@@ -254,6 +299,39 @@ const messages = {
       success: 'આભાર! તમારો સંદેશ મોકલાઈ ગયો છે.',
       helpTitle: 'મદદની જરૂર છે?',
       helpDesc: 'શું તમે કોઈ ખાસ બજારની માહિતી શોધી રહ્યા છો? અથવા અમને કોઈ સૂચન આપવા માંગો છો? અમને જણાવો!'
+    },
+    footer: {
+      privacy: 'ગોપનીયતા નીતિ',
+      terms: 'સેવાની શરતો',
+      rights: 'સર્વાધિકાર સુરક્ષિત.',
+      latestPrices: 'તાજા ભાવ',
+      weather: 'હવામાન આગાહી',
+      support: 'સહાય',
+      about: 'અમારા વિશે',
+      contact: 'સંપર્ક',
+      markets: {
+        'Rajkot': 'રાજકોટ',
+        'Gondal': 'ગોંડલ',
+        'Ahmedabad': 'અમદાવાદ',
+        'Amreli': 'અમરેલી',
+        'Surat': 'સુરત',
+        'Vadodara': 'વડોદરા',
+        'Junagadh': 'જૂનાગઢ',
+        'Jamnagar': 'જામનગર',
+        'Bhavnagar': 'ભાવનગર',
+        'Porbandar': 'પોરબંદર',
+        'Gandhinagar': 'ગાંધીનગર',
+        'Patan': 'પાટણ',
+        'Mehsana': 'મહેસાણા',
+        'Botad': 'બોટાદ',
+        'Morbi': 'મોરબી',
+        'Jasdan': 'જસદણ',
+        'Jetpur': 'જેતપુર',
+        'Dhoraji': 'ધોરાજી',
+        'Upleta': 'ઉપલેટા',
+        'Halvad': 'હળવદ',
+        'Wankaner': 'વાંકાનેર'
+      },
     },
   },
 }
@@ -284,12 +362,40 @@ export function useI18n() {
     } catch {}
   })
 
-  const t = (key) => {
+  const t = (key, params = {}) => {
     const table = messages[lang.value]
-    const val = resolve(table, key)
-    return (typeof val === 'string' ? val : undefined) ?? key
+    let val = resolve(table, key)
+    
+    if (typeof val !== 'string') return key
+    
+    // Simple interpolation: replace {key} with params[key]
+    Object.keys(params).forEach(p => {
+      val = val.replace(new RegExp(`\\{${p}\\}`, 'g'), params[p])
+    })
+    
+    return val
+  }
+
+  const tMarket = (name) => {
+    if (!name) return ''
+    const key = `footer.markets.${name}`
+    const val = t(key)
+    return val === key ? name : val
+  }
+
+  const resolveMarketId = (input) => {
+    if (!input) return input
+    // Check if input matches a localized value in Gujarati dictionary (primary target for translation)
+    const guMarkets = messages.gu.footer.markets
+    for (const [key, val] of Object.entries(guMarkets)) {
+      if (val === input || val.toLowerCase() === input.toLowerCase()) {
+        return key
+      }
+    }
+    // Return distinct input if no translation match found (assumed English)
+    return input
   }
 
   const translate = t
-  return { t, translate, lang, setLang }
+  return { t, translate, tMarket, resolveMarketId, lang, setLang }
 }
