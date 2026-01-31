@@ -239,14 +239,15 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, computed, onMounted, watch } from 'vue'
 
 const { t, tMarket, lang } = useI18n()
 const route = useRoute()
+const router = useRouter()
 const client = useSupabaseClient()
 
 const commodityName = route.params.name
-const selectedMarket = route.query.market
+const selectedMarket = computed(() => route.query.market?.toString() || 'Rajkot')
 
 const displayTitle = computed(() => {
   if (rawData.value.length > 0) {
@@ -262,7 +263,7 @@ const shareOnWhatsApp = () => {
     ? rawData.value[0].crops.local_name 
     : (rawData.value[0]?.crops?.name || commodityName)
     
-  const marketDisplay = selectedMarket ? tMarket(selectedMarket) : (lang.value === 'gu' ? 'ગુજરાત' : 'Gujarat')
+  const marketDisplay = selectedMarket.value ? tMarket(selectedMarket.value) : (lang.value === 'gu' ? 'ગુજરાત' : 'Gujarat')
     
   const text = t('crop.shareText', {
     crop: cropDisplay,
@@ -271,7 +272,7 @@ const shareOnWhatsApp = () => {
   })
   
   // Construct a clean URL for the shared message
-  const url = `https://www.khedutbajarbhav.online/crop/${commodityName}?market=${encodeURIComponent(selectedMarket || '')}`
+  const url = `https://www.khedutbajarbhav.online/crop/${commodityName}?market=${encodeURIComponent(selectedMarket.value || '')}`
   
   // Combine with double newlines for the "farmer-friendly" spacing requested
   const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text + '\n\n' + url)}`
@@ -320,8 +321,8 @@ const uniqueDates = computed(() => {
   // If a market is selected, find the last 5 days it HAD data
   // otherwise find the last 5 days ANY market had data
   let source = rawData.value
-  if (selectedMarket) {
-    const marketData = rawData.value.filter(r => r.market_yards.name === selectedMarket)
+  if (selectedMarket.value) {
+    const marketData = rawData.value.filter(r => r.market_yards.name === selectedMarket.value)
     if (marketData.length > 0) source = marketData
   }
   
@@ -361,11 +362,11 @@ const trendPoints = computed(() => {
     const dailyRows = dateMap.get(d)
     
     // Strictly find the selected market's data
-    const target = dailyRows.find(r => r.market_yards.name === selectedMarket)
+    const target = dailyRows.find(r => r.market_yards.name === selectedMarket.value)
     
     // If we have data for this market on this day, use it. 
     // Otherwise, if NO market is selected, use the first available one as fallback.
-    const pointData = target || (!selectedMarket ? dailyRows[0] : null)
+    const pointData = target || (!selectedMarket.value ? dailyRows[0] : null)
     
     if (!pointData) return null
     
@@ -418,7 +419,7 @@ const otherMarkets = computed(() => {
 
   // Get data for other markets on the latest date
   return rawData.value
-    .filter(r => r.price_date.slice(0, 10) === latestDateStr && r.market_yards.name !== selectedMarket)
+    .filter(r => r.price_date.slice(0, 10) === latestDateStr && r.market_yards.name !== selectedMarket.value)
     .map(r => ({
       market: r.market_yards.name,
       max: r.max_price,
@@ -444,9 +445,9 @@ const maxPriceOverall = computed(() => {
   if (!latestDt) return 0
   
   const latestData = rawData.value.filter(r => r.price_date.slice(0, 10) === latestDt)
-  const marketSpecific = latestData.find(r => r.market_yards.name === selectedMarket)
+  const marketSpecific = latestData.find(r => r.market_yards.name === selectedMarket.value)
   
-  if (selectedMarket && marketSpecific) return marketSpecific.max_price
+  if (selectedMarket.value && marketSpecific) return marketSpecific.max_price
   return Math.max(...latestData.map(r => r.max_price))
 })
 
@@ -456,22 +457,28 @@ const minPriceOverall = computed(() => {
   if (!latestDt) return 0
   
   const latestData = rawData.value.filter(r => r.price_date.slice(0, 10) === latestDt)
-  const marketSpecific = latestData.find(r => r.market_yards.name === selectedMarket)
+  const marketSpecific = latestData.find(r => r.market_yards.name === selectedMarket.value)
   
-  if (selectedMarket && marketSpecific) return marketSpecific.min_price
+  if (selectedMarket.value && marketSpecific) return marketSpecific.min_price
   return Math.min(...latestData.filter(r => r.min_price > 0).map(r => r.min_price))
 })
 
 onMounted(() => {
   fetchData()
+  // Ensure default market is in URL if not present
+  if (!route.query.market) {
+    router.replace({
+      query: { ...route.query, market: 'Rajkot' }
+    })
+  }
 })
 
 // Dynamic SEO
 const pageTitle = computed(() => {
   const brand = t('brand.name')
-  const marketName = selectedMarket ? tMarket(selectedMarket) : ''
+  const marketName = selectedMarket.value ? tMarket(selectedMarket.value) : ''
   const marketSuffix = marketName ? ` in ${marketName}` : ''
-  const rajkotKeywords = selectedMarket?.toLowerCase().includes('rajkot') ? ' | Rajkot Bajar Bhav' : ''
+  const rajkotKeywords = selectedMarket.value?.toLowerCase().includes('rajkot') ? ' | Rajkot Bajar Bhav' : ''
   
   if (lang.value === 'gu') {
     const marketGu = marketName ? ` ${marketName} માર્કેટ યાર્ડ` : ''
@@ -482,11 +489,11 @@ const pageTitle = computed(() => {
 
 const pageDesc = computed(() => {
   const priceText = maxPriceOverall.value > 0 ? `₹${maxPriceOverall.value.toLocaleString()}` : ''
-  const marketName = selectedMarket ? tMarket(selectedMarket) : (lang.value === 'gu' ? 'ગુજરાત' : 'Gujarat')
+  const marketName = selectedMarket.value ? tMarket(selectedMarket.value) : (lang.value === 'gu' ? 'ગુજરાત' : 'Gujarat')
   
   if (lang.value === 'gu') {
     let desc = `${marketName} માર્કેટ યાર્ડમાં ${commodityName} ના તાજા બજાર ભાવ. આજનો સૌથી વધુ ભાવ: ${priceText}.`
-    if (selectedMarket?.toLowerCase().includes('rajkot')) {
+    if (selectedMarket.value?.toLowerCase().includes('rajkot')) {
       desc = `રાજકોટ માર્કેટ યાર્ડ ${commodityName} બજાર ભાવ (Rajkot Bajar Bhav). આજે ${commodityName} નો ભાવ: ${priceText}. છેલ્લા ૫ દિવસનો ઈતિહાસ જુઓ.`
     }
     return desc
@@ -505,7 +512,7 @@ const pageKeywords = computed(() => {
   
   let keywords = lang.value === 'gu' ? `${gu}, ${base}` : `${base}, ${gu}`
   
-  if (selectedMarket?.toLowerCase().includes('rajkot')) {
+  if (selectedMarket.value?.toLowerCase().includes('rajkot')) {
     keywords += ', Rajkot Market Yard, Rajkot Bajar Bhav, Rajkot Yard Bhav, Rajkot Bhajar Bhav, રાજકોટ બજાર ભાવ'
   }
   
